@@ -57,7 +57,7 @@ void spi_transfer(SSD1306_t * dev, uint8_t data) {
   while (mask != 0) {
     set_low(dev->sck);
     if ((mask & data) == mask) {
-      set_high(dev->mosi); 
+      set_high(dev->mosi);
     } else {
       set_low(dev->mosi);
     }
@@ -92,39 +92,39 @@ void device_init(SSD1306_t * dev) {
   if (dev->_height == 32) dev->_pages = 4;
 
   set_low(dev->cs);
-  spi_master_write_command(dev, OLED_CMD_DISPLAY_OFF);			                   // AE
-  spi_master_write_command(dev, OLED_CMD_SET_MUX_RATIO);			                 // A8
+  spi_master_write_command(dev, OLED_CMD_DISPLAY_OFF);
+  spi_master_write_command(dev, OLED_CMD_SET_MUX_RATIO);
   spi_master_write_command(dev, 0x3F);
-  spi_master_write_command(dev, OLED_CMD_SET_DISPLAY_OFFSET);		               // D3
+  spi_master_write_command(dev, OLED_CMD_SET_DISPLAY_OFFSET);
   spi_master_write_command(dev, 0x00);
-  spi_master_write_command(dev, OLED_CONTROL_BYTE_DATA_STREAM);	               // 40
+  spi_master_write_command(dev, OLED_CONTROL_BYTE_DATA_STREAM);
   if (dev->_flip) {
-    spi_master_write_command(dev, OLED_CMD_SET_SEGMENT_REMAP_0);               // A0
+    spi_master_write_command(dev, OLED_CMD_SET_SEGMENT_REMAP_0);
   } else {
-    spi_master_write_command(dev, OLED_CMD_SET_SEGMENT_REMAP_1);	             // A1
+    spi_master_write_command(dev, OLED_CMD_SET_SEGMENT_REMAP_1);
   }
-  spi_master_write_command(dev, OLED_CMD_SET_COM_SCAN_MODE);		               // C8
-  spi_master_write_command(dev, OLED_CMD_SET_DISPLAY_CLK_DIV);	               // D5
+  spi_master_write_command(dev, OLED_CMD_SET_COM_SCAN_MODE);
+  spi_master_write_command(dev, OLED_CMD_SET_DISPLAY_CLK_DIV);
   spi_master_write_command(dev, 0x80);
-  spi_master_write_command(dev, OLED_CMD_SET_COM_PIN_MAP);		                 // DA
+  spi_master_write_command(dev, OLED_CMD_SET_COM_PIN_MAP);
   spi_master_write_command(dev, 0x12);
-  spi_master_write_command(dev, OLED_CMD_SET_CONTRAST);			                   // 81
+  spi_master_write_command(dev, OLED_CMD_SET_CONTRAST);
   spi_master_write_command(dev, 0xFF);
-  spi_master_write_command(dev, OLED_CMD_DISPLAY_RAM);			                   // A4
-  spi_master_write_command(dev, OLED_CMD_SET_VCOMH_DESELCT);		               // DB
+  spi_master_write_command(dev, OLED_CMD_DISPLAY_RAM);
+  spi_master_write_command(dev, OLED_CMD_SET_VCOMH_DESELCT);
   spi_master_write_command(dev, 0x40);
-  //spi_master_write_command(dev, OLED_CMD_SET_MEMORY_ADDR_MODE);	             // 20
-  spi_master_write_command(dev, OLED_CMD_SET_HORI_ADDR_MODE);	                 // 00
-  spi_master_write_command(dev, OLED_CMD_SET_PAGE_ADDR_MODE);		               // 02
+  //spi_master_write_command(dev, OLED_CMD_SET_MEMORY_ADDR_MODE);
+  spi_master_write_command(dev, OLED_CMD_SET_HORI_ADDR_MODE);
+  spi_master_write_command(dev, OLED_CMD_SET_PAGE_ADDR_MODE);
   // Set Lower Column Start Address for Page Addressing Mode
   spi_master_write_command(dev, 0x00);
   // Set Higher Column Start Address for Page Addressing Mode
   spi_master_write_command(dev, 0x10);
-  spi_master_write_command(dev, OLED_CMD_SET_CHARGE_PUMP);		                 // 8D
+  spi_master_write_command(dev, OLED_CMD_SET_CHARGE_PUMP);
   spi_master_write_command(dev, 0x14);
-  spi_master_write_command(dev, OLED_CMD_DEACTIVE_SCROLL);		                 // 2E
-  spi_master_write_command(dev, OLED_CMD_DISPLAY_NORMAL);			                 // A6
-  spi_master_write_command(dev, OLED_CMD_DISPLAY_ON);			                     // AF
+  spi_master_write_command(dev, OLED_CMD_DEACTIVE_SCROLL);
+  spi_master_write_command(dev, OLED_CMD_DISPLAY_NORMAL);
+  spi_master_write_command(dev, OLED_CMD_DISPLAY_ON);
   set_high(dev->cs);
 }
 
@@ -134,7 +134,7 @@ void spi_contrast(SSD1306_t * dev, int contrast) {
   if (contrast < 0x0) _contrast = 0;
   if (contrast > 0xFF) _contrast = 0xFF;
 
-  spi_master_write_command(dev, OLED_CMD_SET_CONTRAST);			                   // 81
+  spi_master_write_command(dev, OLED_CMD_SET_CONTRAST);
   spi_master_write_command(dev, _contrast);
 }
 
@@ -142,29 +142,29 @@ void spi_hardware_scroll(SSD1306_t * dev, ssd1306_scroll_type_t scroll)
 {
 
   if (scroll == SCROLL_RIGHT) {
-    spi_master_write_command(dev, OLED_CMD_HORIZONTAL_RIGHT);	                 // 26
+    spi_master_write_command(dev, OLED_CMD_HORIZONTAL_RIGHT);
     spi_master_write_command(dev, 0x00); // Dummy byte
     spi_master_write_command(dev, 0x00); // Define start page address
     spi_master_write_command(dev, 0x07); // Frame frequency
     spi_master_write_command(dev, 0x07); // Define end page address
     spi_master_write_command(dev, 0x00); //
     spi_master_write_command(dev, 0xFF); //
-    spi_master_write_command(dev, OLED_CMD_ACTIVE_SCROLL);		                 // 2F
-  } 
+    spi_master_write_command(dev, OLED_CMD_ACTIVE_SCROLL);
+  }
 
   if (scroll == SCROLL_LEFT) {
-    spi_master_write_command(dev, OLED_CMD_HORIZONTAL_LEFT);	                 // 27
+    spi_master_write_command(dev, OLED_CMD_HORIZONTAL_LEFT);
     spi_master_write_command(dev, 0x00); // Dummy byte
     spi_master_write_command(dev, 0x00); // Define start page address
     spi_master_write_command(dev, 0x07); // Frame frequency
     spi_master_write_command(dev, 0x07); // Define end page address
     spi_master_write_command(dev, 0x00); //
     spi_master_write_command(dev, 0xFF); //
-    spi_master_write_command(dev, OLED_CMD_ACTIVE_SCROLL);		                 // 2F
-  } 
+    spi_master_write_command(dev, OLED_CMD_ACTIVE_SCROLL);
+  }
 
   if (scroll == SCROLL_DOWN) {
-    spi_master_write_command(dev, OLED_CMD_CONTINUOUS_SCROLL);	               // 29
+    spi_master_write_command(dev, OLED_CMD_CONTINUOUS_SCROLL);
     spi_master_write_command(dev, 0x00); // Dummy byte
     spi_master_write_command(dev, 0x00); // Define start page address
     spi_master_write_command(dev, 0x07); // Frame frequency
@@ -172,17 +172,17 @@ void spi_hardware_scroll(SSD1306_t * dev, ssd1306_scroll_type_t scroll)
     spi_master_write_command(dev, 0x00); // Define end page address
     spi_master_write_command(dev, 0x3F); // Vertical scrolling offset
 
-    spi_master_write_command(dev, OLED_CMD_VERTICAL);		                       // A3
+    spi_master_write_command(dev, OLED_CMD_VERTICAL);
     spi_master_write_command(dev, 0x00);
     if (dev->_height == 64)
       spi_master_write_command(dev, 0x40);
     if (dev->_height == 32)
       spi_master_write_command(dev, 0x20);
-    spi_master_write_command(dev, OLED_CMD_ACTIVE_SCROLL);		                 // 2F
+    spi_master_write_command(dev, OLED_CMD_ACTIVE_SCROLL);
   }
 
   if (scroll == SCROLL_UP) {
-    spi_master_write_command(dev, OLED_CMD_CONTINUOUS_SCROLL);	               // 29
+    spi_master_write_command(dev, OLED_CMD_CONTINUOUS_SCROLL);
     spi_master_write_command(dev, 0x00); // Dummy byte
     spi_master_write_command(dev, 0x00); // Define start page address
     spi_master_write_command(dev, 0x07); // Frame frequency
@@ -190,16 +190,16 @@ void spi_hardware_scroll(SSD1306_t * dev, ssd1306_scroll_type_t scroll)
     spi_master_write_command(dev, 0x00); // Define end page address
     spi_master_write_command(dev, 0x01); // Vertical scrolling offset
 
-    spi_master_write_command(dev, OLED_CMD_VERTICAL);		                       // A3
+    spi_master_write_command(dev, OLED_CMD_VERTICAL);
     spi_master_write_command(dev, 0x00);
     if (dev->_height == 64)
       spi_master_write_command(dev, 0x40);
     if (dev->_height == 32)
       spi_master_write_command(dev, 0x20);
-    spi_master_write_command(dev, OLED_CMD_ACTIVE_SCROLL);		                 // 2F
+    spi_master_write_command(dev, OLED_CMD_ACTIVE_SCROLL);
   }
 
   if (scroll == SCROLL_STOP) {
-    spi_master_write_command(dev, OLED_CMD_DEACTIVE_SCROLL);	                 // 2E
+    spi_master_write_command(dev, OLED_CMD_DEACTIVE_SCROLL);
   }
 }
