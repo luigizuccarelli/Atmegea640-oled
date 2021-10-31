@@ -1,0 +1,1840 @@
+GAS LISTING /tmp/cchy1VOj.s 			page 1
+
+
+   1               		.file	"ssd1306.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.stabs	"/home/lzuccarelli/Projects/avr-oled/",100,0,2,.Ltext0
+   8               		.stabs	"ssd1306.c",100,0,2,.Ltext0
+   9               		.text
+  10               	.Ltext0:
+  11               		.stabs	"gcc2_compiled.",60,0,0,0
+  12               		.stabs	"ssd1306_display_text:F(0,1)=(0,1)",36,0,12,ssd1306_display_text
+  13               		.stabs	"uint8_t:t(0,2)=(0,3)=@s8;r(0,3);0;255;",128,0,126,0
+  14               		.stabs	"void:t(0,1)",128,0,0,0
+  15               		.stabs	"unsigned char:t(0,3)",128,0,0,0
+  16               		.stabs	"text:P(0,4)=*(0,5)=@s8;r(0,5);0;255;",64,0,12,12
+  17               		.stabs	"text_len:P(0,6)=r(0,6);-32768;32767;",64,0,12,16
+  18               		.stabs	"invert:P(0,7)=@s8;-16;",64,0,12,16
+  19               		.stabs	"char:t(0,5)",128,0,0,0
+  20               		.stabs	"int:t(0,6)",128,0,0,0
+  21               		.stabs	"_Bool:t(0,7)",128,0,0,0
+  22               	.global	ssd1306_display_text
+  23               		.type	ssd1306_display_text, @function
+  24               	ssd1306_display_text:
+   1:ssd1306.c     **** #include <string.h>
+   2:ssd1306.c     **** #include <stdlib.h>
+   3:ssd1306.c     **** #include <stdint.h>
+   4:ssd1306.c     **** #include <stdbool.h>
+   5:ssd1306.c     **** #include <avr/io.h>
+   6:ssd1306.c     **** #include <util/delay.h>
+   7:ssd1306.c     **** #include "ssd1306.h"
+   8:ssd1306.c     **** #include "font8x8_basic.h"
+   9:ssd1306.c     **** 
+  10:ssd1306.c     **** 
+  11:ssd1306.c     **** 
+  12:ssd1306.c     **** void ssd1306_display_text(SSD1306_t * dev, int page, char * text, int text_len, bool invert) {
+  25               		.stabn	68,0,12,.LM0-.LFBB1
+  26               	.LM0:
+  27               	.LFBB1:
+  28 0000 8F92      		push r8
+  29 0002 9F92      		push r9
+  30 0004 AF92      		push r10
+  31 0006 BF92      		push r11
+  32 0008 CF92      		push r12
+  33 000a DF92      		push r13
+  34 000c EF92      		push r14
+  35 000e FF92      		push r15
+  36 0010 0F93      		push r16
+  37 0012 1F93      		push r17
+  38 0014 CF93      		push r28
+  39 0016 DF93      		push r29
+  40 0018 CDB7      		in r28,__SP_L__
+  41 001a DEB7      		in r29,__SP_H__
+  42 001c 2897      		sbiw r28,8
+  43 001e 0FB6      		in __tmp_reg__,__SREG__
+  44 0020 F894      		cli
+  45 0022 DEBF      		out __SP_H__,r29
+GAS LISTING /tmp/cchy1VOj.s 			page 2
+
+
+  46 0024 0FBE      		out __SREG__,__tmp_reg__
+  47 0026 CDBF      		out __SP_L__,r28
+  48               	/* prologue: function */
+  49               	/* frame size = 8 */
+  50               	/* stack size = 20 */
+  51               	.L__stack_usage = 20
+  52 0028 B82E      		mov r11,r24
+  53 002a A92E      		mov r10,r25
+  54 002c 962E      		mov r9,r22
+  55 002e 872E      		mov r8,r23
+  56 0030 6A01      		movw r12,r20
+  57 0032 8901      		movw r16,r18
+  58               	.LBB2:
+  13:ssd1306.c     **** 	uint8_t seg = 0;
+  14:ssd1306.c     ****   uint8_t chars[8];
+  15:ssd1306.c     **** 	for (uint8_t i = 0; i < text_len; i++) {
+  59               		.stabn	68,0,15,.LM1-.LFBB1
+  60               	.LM1:
+  61 0034 F12C      		mov r15,__zero_reg__
+  62               	.LBE2:
+  13:ssd1306.c     **** 	uint8_t seg = 0;
+  63               		.stabn	68,0,13,.LM2-.LFBB1
+  64               	.LM2:
+  65 0036 E12C      		mov r14,__zero_reg__
+  66               	.L2:
+  67               	.LBB3:
+  68               		.stabn	68,0,15,.LM3-.LFBB1
+  69               	.LM3:
+  70 0038 8F2D      		mov r24,r15
+  71 003a 90E0      		ldi r25,0
+  72               		.stabn	68,0,15,.LM4-.LFBB1
+  73               	.LM4:
+  74 003c 8017      		cp r24,r16
+  75 003e 9107      		cpc r25,r17
+  76 0040 04F0      		brlt .L3
+  77               	/* epilogue start */
+  78               	.LBE3:
+  16:ssd1306.c     ****     memcpy(chars,font8x8_basic_tr[(uint8_t)text[i]],8);
+  17:ssd1306.c     **** 		spi_display_text(dev, page, seg, chars);
+  18:ssd1306.c     **** 		seg = seg + 8;
+  19:ssd1306.c     **** 	}
+  20:ssd1306.c     **** }
+  79               		.stabn	68,0,20,.LM5-.LFBB1
+  80               	.LM5:
+  81 0042 2896      		adiw r28,8
+  82 0044 0FB6      		in __tmp_reg__,__SREG__
+  83 0046 F894      		cli
+  84 0048 DEBF      		out __SP_H__,r29
+  85 004a 0FBE      		out __SREG__,__tmp_reg__
+  86 004c CDBF      		out __SP_L__,r28
+  87 004e DF91      		pop r29
+  88 0050 CF91      		pop r28
+  89 0052 1F91      		pop r17
+  90 0054 0F91      		pop r16
+  91 0056 FF90      		pop r15
+  92 0058 EF90      		pop r14
+  93 005a DF90      		pop r13
+GAS LISTING /tmp/cchy1VOj.s 			page 3
+
+
+  94 005c CF90      		pop r12
+  95 005e BF90      		pop r11
+  96 0060 AF90      		pop r10
+  97 0062 9F90      		pop r9
+  98 0064 8F90      		pop r8
+  99 0066 0895      		ret
+ 100               	.L3:
+ 101               	.LBB4:
+  16:ssd1306.c     ****     memcpy(chars,font8x8_basic_tr[(uint8_t)text[i]],8);
+ 102               		.stabn	68,0,16,.LM6-.LFBB1
+ 103               	.LM6:
+ 104 0068 8C0D      		add r24,r12
+ 105 006a 9D1D      		adc r25,r13
+  16:ssd1306.c     ****     memcpy(chars,font8x8_basic_tr[(uint8_t)text[i]],8);
+ 106               		.stabn	68,0,16,.LM7-.LFBB1
+ 107               	.LM7:
+ 108 006c DC01      		movw r26,r24
+ 109 006e EC91      		ld r30,X
+  16:ssd1306.c     ****     memcpy(chars,font8x8_basic_tr[(uint8_t)text[i]],8);
+ 110               		.stabn	68,0,16,.LM8-.LFBB1
+ 111               	.LM8:
+ 112 0070 B8E0      		ldi r27,lo8(8)
+ 113 0072 EB9F      		mul r30,r27
+ 114 0074 F001      		movw r30,r0
+ 115 0076 1124      		clr __zero_reg__
+ 116 0078 E050      		subi r30,lo8(-(font8x8_basic_tr))
+ 117 007a F040      		sbci r31,hi8(-(font8x8_basic_tr))
+ 118 007c 88E0      		ldi r24,lo8(8)
+ 119 007e DE01      		movw r26,r28
+ 120 0080 1196      		adiw r26,1
+ 121               		0:
+ 122 0082 0190      		ld r0,Z+
+ 123 0084 0D92      		st X+,r0
+ 124 0086 8A95      		dec r24
+ 125 0088 01F4      		brne 0b
+  17:ssd1306.c     **** 		seg = seg + 8;
+ 126               		.stabn	68,0,17,.LM9-.LFBB1
+ 127               	.LM9:
+ 128 008a 4E2D      		mov r20,r14
+ 129 008c 50E0      		ldi r21,0
+ 130 008e 9E01      		movw r18,r28
+ 131 0090 2F5F      		subi r18,-1
+ 132 0092 3F4F      		sbci r19,-1
+ 133 0094 692D      		mov r22,r9
+ 134 0096 782D      		mov r23,r8
+ 135 0098 8B2D      		mov r24,r11
+ 136 009a 9A2D      		mov r25,r10
+ 137 009c 0E94 0000 		call spi_display_text
+  18:ssd1306.c     **** 	}
+ 138               		.stabn	68,0,18,.LM10-.LFBB1
+ 139               	.LM10:
+ 140 00a0 88E0      		ldi r24,lo8(8)
+ 141 00a2 E80E      		add r14,r24
+  15:ssd1306.c     ****     memcpy(chars,font8x8_basic_tr[(uint8_t)text[i]],8);
+ 142               		.stabn	68,0,15,.LM11-.LFBB1
+ 143               	.LM11:
+ 144 00a4 F394      		inc r15
+GAS LISTING /tmp/cchy1VOj.s 			page 4
+
+
+ 145 00a6 00C0      		rjmp .L2
+ 146               	.LBE4:
+ 147               		.size	ssd1306_display_text, .-ssd1306_display_text
+ 148               		.stabs	"seg:r(0,2)",64,0,13,14
+ 149               		.stabs	"chars:(0,8)=ar(0,9)=r(0,9);0;0177777;;0;7;(0,2)",128,0,14,1
+ 150               		.stabn	192,0,0,.LFBB1-.LFBB1
+ 151               		.stabs	"i:r(0,2)",64,0,15,15
+ 152               		.stabn	192,0,0,.LBB2-.LFBB1
+ 153               		.stabn	224,0,0,.LBE2-.LFBB1
+ 154               		.stabs	"i:r(0,2)",64,0,15,15
+ 155               		.stabn	192,0,0,.LBB3-.LFBB1
+ 156               		.stabn	224,0,0,.LBE3-.LFBB1
+ 157               		.stabs	"i:r(0,2)",64,0,15,15
+ 158               		.stabn	192,0,0,.LBB4-.LFBB1
+ 159               		.stabn	224,0,0,.LBE4-.LFBB1
+ 160               		.stabn	224,0,0,.Lscope1-.LFBB1
+ 161               	.Lscope1:
+ 162               		.stabs	"",36,0,0,.Lscope1-.LFBB1
+ 163               		.stabs	"ssd1306_clear_screen:F(0,1)",36,0,23,ssd1306_clear_screen
+ 164               		.stabs	"dev:P(0,10)=*(0,11)=(0,12)=s1083_address:(0,6),0,16;_width:(0,6),16,16;_height:(0,6),32,16
+ 165               		.stabs	"invert:P(0,7)",64,0,23,17
+ 166               	.global	ssd1306_clear_screen
+ 167               		.type	ssd1306_clear_screen, @function
+ 168               	ssd1306_clear_screen:
+  21:ssd1306.c     **** 
+  22:ssd1306.c     **** 
+  23:ssd1306.c     **** void ssd1306_clear_screen(SSD1306_t * dev, bool invert) {
+ 169               		.stabn	68,0,23,.LM12-.LFBB2
+ 170               	.LM12:
+ 171               	.LFBB2:
+ 172 00a8 AF92      		push r10
+ 173 00aa BF92      		push r11
+ 174 00ac CF92      		push r12
+ 175 00ae DF92      		push r13
+ 176 00b0 EF92      		push r14
+ 177 00b2 FF92      		push r15
+ 178 00b4 0F93      		push r16
+ 179 00b6 1F93      		push r17
+ 180 00b8 CF93      		push r28
+ 181 00ba DF93      		push r29
+ 182 00bc CDB7      		in r28,__SP_L__
+ 183 00be DEB7      		in r29,__SP_H__
+ 184 00c0 6097      		sbiw r28,16
+ 185 00c2 0FB6      		in __tmp_reg__,__SREG__
+ 186 00c4 F894      		cli
+ 187 00c6 DEBF      		out __SP_H__,r29
+ 188 00c8 0FBE      		out __SREG__,__tmp_reg__
+ 189 00ca CDBF      		out __SP_L__,r28
+ 190               	/* prologue: function */
+ 191               	/* frame size = 16 */
+ 192               	/* stack size = 26 */
+ 193               	.L__stack_usage = 26
+ 194 00cc 6C01      		movw r12,r24
+ 195 00ce 162F      		mov r17,r22
+  24:ssd1306.c     ****     char space[16];
+  25:ssd1306.c     ****     memset(space, 0x20, sizeof(space));
+ 196               		.stabn	68,0,25,.LM13-.LFBB2
+GAS LISTING /tmp/cchy1VOj.s 			page 5
+
+
+ 197               	.LM13:
+ 198 00d0 40E1      		ldi r20,lo8(16)
+ 199 00d2 50E0      		ldi r21,0
+ 200 00d4 60E2      		ldi r22,lo8(32)
+ 201 00d6 70E0      		ldi r23,0
+ 202 00d8 CE01      		movw r24,r28
+ 203 00da 0196      		adiw r24,1
+ 204 00dc 5C01      		movw r10,r24
+ 205 00de 0E94 0000 		call memset
+ 206               	.LBB5:
+  26:ssd1306.c     ****     for (int page = 0; page < dev->_pages; page++) {
+ 207               		.stabn	68,0,26,.LM14-.LFBB2
+ 208               	.LM14:
+ 209 00e2 F12C      		mov r15,__zero_reg__
+ 210 00e4 E12C      		mov r14,__zero_reg__
+ 211               	.L5:
+ 212               		.stabn	68,0,26,.LM15-.LFBB2
+ 213               	.LM15:
+ 214 00e6 F601      		movw r30,r12
+ 215 00e8 8681      		ldd r24,Z+6
+ 216 00ea 9781      		ldd r25,Z+7
+ 217 00ec E816      		cp r14,r24
+ 218 00ee F906      		cpc r15,r25
+ 219 00f0 04F0      		brlt .L6
+ 220               	/* epilogue start */
+ 221               	.LBE5:
+  27:ssd1306.c     ****         ssd1306_display_text(dev, page, space, sizeof(space), invert);
+  28:ssd1306.c     ****     }
+  29:ssd1306.c     **** }
+ 222               		.stabn	68,0,29,.LM16-.LFBB2
+ 223               	.LM16:
+ 224 00f2 6096      		adiw r28,16
+ 225 00f4 0FB6      		in __tmp_reg__,__SREG__
+ 226 00f6 F894      		cli
+ 227 00f8 DEBF      		out __SP_H__,r29
+ 228 00fa 0FBE      		out __SREG__,__tmp_reg__
+ 229 00fc CDBF      		out __SP_L__,r28
+ 230 00fe DF91      		pop r29
+ 231 0100 CF91      		pop r28
+ 232 0102 1F91      		pop r17
+ 233 0104 0F91      		pop r16
+ 234 0106 FF90      		pop r15
+ 235 0108 EF90      		pop r14
+ 236 010a DF90      		pop r13
+ 237 010c CF90      		pop r12
+ 238 010e BF90      		pop r11
+ 239 0110 AF90      		pop r10
+ 240 0112 0895      		ret
+ 241               	.L6:
+ 242               	.LBB6:
+  27:ssd1306.c     ****         ssd1306_display_text(dev, page, space, sizeof(space), invert);
+ 243               		.stabn	68,0,27,.LM17-.LFBB2
+ 244               	.LM17:
+ 245 0114 012F      		mov r16,r17
+ 246 0116 20E1      		ldi r18,lo8(16)
+ 247 0118 30E0      		ldi r19,0
+ 248 011a A501      		movw r20,r10
+GAS LISTING /tmp/cchy1VOj.s 			page 6
+
+
+ 249 011c B701      		movw r22,r14
+ 250 011e C601      		movw r24,r12
+ 251 0120 0E94 0000 		call ssd1306_display_text
+  26:ssd1306.c     ****     for (int page = 0; page < dev->_pages; page++) {
+ 252               		.stabn	68,0,26,.LM18-.LFBB2
+ 253               	.LM18:
+ 254 0124 9FEF      		ldi r25,-1
+ 255 0126 E91A      		sub r14,r25
+ 256 0128 F90A      		sbc r15,r25
+ 257 012a 00C0      		rjmp .L5
+ 258               	.LBE6:
+ 259               		.size	ssd1306_clear_screen, .-ssd1306_clear_screen
+ 260               		.stabs	"space:(0,21)=ar(0,9);0;15;(0,5)",128,0,24,1
+ 261               		.stabn	192,0,0,.LFBB2-.LFBB2
+ 262               		.stabs	"page:r(0,6)",64,0,26,14
+ 263               		.stabn	192,0,0,.LBB5-.LFBB2
+ 264               		.stabn	224,0,0,.LBE5-.LFBB2
+ 265               		.stabs	"page:r(0,6)",64,0,26,14
+ 266               		.stabn	192,0,0,.LBB6-.LFBB2
+ 267               		.stabn	224,0,0,.LBE6-.LFBB2
+ 268               		.stabn	224,0,0,.Lscope2-.LFBB2
+ 269               	.Lscope2:
+ 270               		.stabs	"",36,0,0,.Lscope2-.LFBB2
+ 271               		.stabs	"ssd1306_clear_line:F(0,1)",36,0,31,ssd1306_clear_line
+ 272               		.stabs	"invert:P(0,7)",64,0,31,16
+ 273               	.global	ssd1306_clear_line
+ 274               		.type	ssd1306_clear_line, @function
+ 275               	ssd1306_clear_line:
+  30:ssd1306.c     **** 
+  31:ssd1306.c     **** void ssd1306_clear_line(SSD1306_t * dev, int page, bool invert) {
+ 276               		.stabn	68,0,31,.LM19-.LFBB3
+ 277               	.LM19:
+ 278               	.LFBB3:
+ 279 012c DF92      		push r13
+ 280 012e EF92      		push r14
+ 281 0130 FF92      		push r15
+ 282 0132 0F93      		push r16
+ 283 0134 1F93      		push r17
+ 284 0136 CF93      		push r28
+ 285 0138 DF93      		push r29
+ 286 013a CDB7      		in r28,__SP_L__
+ 287 013c DEB7      		in r29,__SP_H__
+ 288 013e 6097      		sbiw r28,16
+ 289 0140 0FB6      		in __tmp_reg__,__SREG__
+ 290 0142 F894      		cli
+ 291 0144 DEBF      		out __SP_H__,r29
+ 292 0146 0FBE      		out __SREG__,__tmp_reg__
+ 293 0148 CDBF      		out __SP_L__,r28
+ 294               	/* prologue: function */
+ 295               	/* frame size = 16 */
+ 296               	/* stack size = 23 */
+ 297               	.L__stack_usage = 23
+ 298 014a F82E      		mov r15,r24
+ 299 014c 192F      		mov r17,r25
+ 300 014e D62E      		mov r13,r22
+ 301 0150 E72E      		mov r14,r23
+ 302 0152 042F      		mov r16,r20
+GAS LISTING /tmp/cchy1VOj.s 			page 7
+
+
+  32:ssd1306.c     ****     char space[16];
+  33:ssd1306.c     ****     memset(space, 0x20, sizeof(space));
+ 303               		.stabn	68,0,33,.LM20-.LFBB3
+ 304               	.LM20:
+ 305 0154 40E1      		ldi r20,lo8(16)
+ 306 0156 50E0      		ldi r21,0
+ 307 0158 60E2      		ldi r22,lo8(32)
+ 308 015a 70E0      		ldi r23,0
+ 309 015c CE01      		movw r24,r28
+ 310 015e 0196      		adiw r24,1
+ 311 0160 0E94 0000 		call memset
+  34:ssd1306.c     ****     ssd1306_display_text(dev, page, space, sizeof(space), invert);
+ 312               		.stabn	68,0,34,.LM21-.LFBB3
+ 313               	.LM21:
+ 314 0164 20E1      		ldi r18,lo8(16)
+ 315 0166 30E0      		ldi r19,0
+ 316 0168 AE01      		movw r20,r28
+ 317 016a 4F5F      		subi r20,-1
+ 318 016c 5F4F      		sbci r21,-1
+ 319 016e 6D2D      		mov r22,r13
+ 320 0170 7E2D      		mov r23,r14
+ 321 0172 8F2D      		mov r24,r15
+ 322 0174 912F      		mov r25,r17
+ 323 0176 0E94 0000 		call ssd1306_display_text
+ 324               	/* epilogue start */
+  35:ssd1306.c     **** }
+ 325               		.stabn	68,0,35,.LM22-.LFBB3
+ 326               	.LM22:
+ 327 017a 6096      		adiw r28,16
+ 328 017c 0FB6      		in __tmp_reg__,__SREG__
+ 329 017e F894      		cli
+ 330 0180 DEBF      		out __SP_H__,r29
+ 331 0182 0FBE      		out __SREG__,__tmp_reg__
+ 332 0184 CDBF      		out __SP_L__,r28
+ 333 0186 DF91      		pop r29
+ 334 0188 CF91      		pop r28
+ 335 018a 1F91      		pop r17
+ 336 018c 0F91      		pop r16
+ 337 018e FF90      		pop r15
+ 338 0190 EF90      		pop r14
+ 339 0192 DF90      		pop r13
+ 340 0194 0895      		ret
+ 341               		.size	ssd1306_clear_line, .-ssd1306_clear_line
+ 342               		.stabs	"space:(0,21)",128,0,32,1
+ 343               		.stabn	192,0,0,.LFBB3-.LFBB3
+ 344               		.stabn	224,0,0,.Lscope3-.LFBB3
+ 345               	.Lscope3:
+ 346               		.stabs	"",36,0,0,.Lscope3-.LFBB3
+ 347               		.stabs	"ssd1306_contrast:F(0,1)",36,0,37,ssd1306_contrast
+ 348               		.stabs	"dev:P(0,10)",64,0,37,30
+ 349               	.global	ssd1306_contrast
+ 350               		.type	ssd1306_contrast, @function
+ 351               	ssd1306_contrast:
+  36:ssd1306.c     **** 
+  37:ssd1306.c     **** void ssd1306_contrast(SSD1306_t * dev, int contrast) {
+ 352               		.stabn	68,0,37,.LM23-.LFBB4
+ 353               	.LM23:
+GAS LISTING /tmp/cchy1VOj.s 			page 8
+
+
+ 354               	.LFBB4:
+ 355               	/* prologue: function */
+ 356               	/* frame size = 0 */
+ 357               	/* stack size = 0 */
+ 358               	.L__stack_usage = 0
+ 359 0196 FC01      		movw r30,r24
+  38:ssd1306.c     **** 	if (dev->_address == SPIAddress) {
+ 360               		.stabn	68,0,38,.LM24-.LFBB4
+ 361               	.LM24:
+ 362 0198 8081      		ld r24,Z
+ 363 019a 9181      		ldd r25,Z+1
+ 364 019c 8F3F      		cpi r24,-1
+ 365 019e 9105      		cpc r25,__zero_reg__
+ 366 01a0 01F4      		brne .L8
+  39:ssd1306.c     **** 		spi_contrast(dev, contrast);
+ 367               		.stabn	68,0,39,.LM25-.LFBB4
+ 368               	.LM25:
+ 369 01a2 CF01      		movw r24,r30
+ 370 01a4 0C94 0000 		jmp spi_contrast
+ 371               	.L8:
+ 372               	/* epilogue start */
+  40:ssd1306.c     **** 	} 
+  41:ssd1306.c     **** }
+ 373               		.stabn	68,0,41,.LM26-.LFBB4
+ 374               	.LM26:
+ 375 01a8 0895      		ret
+ 376               		.size	ssd1306_contrast, .-ssd1306_contrast
+ 377               	.Lscope4:
+ 378               		.stabs	"",36,0,0,.Lscope4-.LFBB4
+ 379               		.stabs	"ssd1306_software_scroll:F(0,1)",36,0,43,ssd1306_software_scroll
+ 380               		.stabs	"dev:P(0,10)",64,0,43,30
+ 381               		.stabs	"start:P(0,6)",64,0,43,18
+ 382               		.stabs	"end:P(0,6)",64,0,43,24
+ 383               	.global	ssd1306_software_scroll
+ 384               		.type	ssd1306_software_scroll, @function
+ 385               	ssd1306_software_scroll:
+  42:ssd1306.c     **** 
+  43:ssd1306.c     **** void ssd1306_software_scroll(SSD1306_t * dev, int start, int end) {
+ 386               		.stabn	68,0,43,.LM27-.LFBB5
+ 387               	.LM27:
+ 388               	.LFBB5:
+ 389               	/* prologue: function */
+ 390               	/* frame size = 0 */
+ 391               	/* stack size = 0 */
+ 392               	.L__stack_usage = 0
+ 393 01aa FC01      		movw r30,r24
+ 394 01ac 9B01      		movw r18,r22
+ 395 01ae CA01      		movw r24,r20
+  44:ssd1306.c     **** 	
+  45:ssd1306.c     **** 	if (start < 0 || end < 0) {
+ 396               		.stabn	68,0,45,.LM28-.LFBB5
+ 397               	.LM28:
+ 398 01b0 77FD      		sbrc r23,7
+ 399 01b2 00C0      		rjmp .L11
+ 400               		.stabn	68,0,45,.LM29-.LFBB5
+ 401               	.LM29:
+ 402 01b4 57FF      		sbrs r21,7
+GAS LISTING /tmp/cchy1VOj.s 			page 9
+
+
+ 403 01b6 00C0      		rjmp .L12
+ 404               	.L11:
+  46:ssd1306.c     **** 		dev->_scEnable = false;
+ 405               		.stabn	68,0,46,.LM30-.LFBB5
+ 406               	.LM30:
+ 407 01b8 1086      		std Z+8,__zero_reg__
+ 408 01ba 0895      		ret
+ 409               	.L12:
+  47:ssd1306.c     **** 	} else if (start >= dev->_pages || end >= dev->_pages) {
+ 410               		.stabn	68,0,47,.LM31-.LFBB5
+ 411               	.LM31:
+ 412 01bc 4681      		ldd r20,Z+6
+ 413 01be 5781      		ldd r21,Z+7
+ 414               		.stabn	68,0,47,.LM32-.LFBB5
+ 415               	.LM32:
+ 416 01c0 6417      		cp r22,r20
+ 417 01c2 7507      		cpc r23,r21
+ 418 01c4 04F4      		brge .L11
+ 419               		.stabn	68,0,47,.LM33-.LFBB5
+ 420               	.LM33:
+ 421 01c6 8417      		cp r24,r20
+ 422 01c8 9507      		cpc r25,r21
+ 423 01ca 04F4      		brge .L11
+  48:ssd1306.c     **** 		dev->_scEnable = false;
+  49:ssd1306.c     **** 	} else {
+  50:ssd1306.c     **** 		dev->_scEnable = true;
+ 424               		.stabn	68,0,50,.LM34-.LFBB5
+ 425               	.LM34:
+ 426 01cc 61E0      		ldi r22,lo8(1)
+ 427 01ce 6087      		std Z+8,r22
+  51:ssd1306.c     **** 		dev->_scStart = start;
+ 428               		.stabn	68,0,51,.LM35-.LFBB5
+ 429               	.LM35:
+ 430 01d0 3287      		std Z+10,r19
+ 431 01d2 2187      		std Z+9,r18
+  52:ssd1306.c     **** 		dev->_scEnd = end;
+ 432               		.stabn	68,0,52,.LM36-.LFBB5
+ 433               	.LM36:
+ 434 01d4 9487      		std Z+12,r25
+ 435 01d6 8387      		std Z+11,r24
+  53:ssd1306.c     **** 		dev->_scDirection = 1;
+  54:ssd1306.c     **** 		if (start > end ) dev->_scDirection = -1;
+ 436               		.stabn	68,0,54,.LM37-.LFBB5
+ 437               	.LM37:
+ 438 01d8 8217      		cp r24,r18
+ 439 01da 9307      		cpc r25,r19
+ 440 01dc 04F0      		brlt .L14
+  53:ssd1306.c     **** 		dev->_scDirection = 1;
+ 441               		.stabn	68,0,53,.LM38-.LFBB5
+ 442               	.LM38:
+ 443 01de 81E0      		ldi r24,lo8(1)
+ 444 01e0 90E0      		ldi r25,0
+ 445               	.L18:
+ 446               		.stabn	68,0,54,.LM39-.LFBB5
+ 447               	.LM39:
+ 448 01e2 9687      		std Z+14,r25
+ 449 01e4 8587      		std Z+13,r24
+GAS LISTING /tmp/cchy1VOj.s 			page 10
+
+
+  43:ssd1306.c     **** 	
+ 450               		.stabn	68,0,43,.LM40-.LFBB5
+ 451               	.LM40:
+ 452 01e6 90E0      		ldi r25,0
+ 453 01e8 80E0      		ldi r24,0
+ 454               	.L16:
+ 455               	.LBB7:
+  55:ssd1306.c     **** 		for (int i=0;i<dev->_pages;i++) {
+  56:ssd1306.c     **** 			dev->_page[i]._valid = false;
+ 456               		.stabn	68,0,56,.LM41-.LFBB5
+ 457               	.LM41:
+ 458 01ea 1786      		std Z+15,__zero_reg__
+  57:ssd1306.c     **** 			dev->_page[i]._segLen = 0;
+ 459               		.stabn	68,0,57,.LM42-.LFBB5
+ 460               	.LM42:
+ 461 01ec 118A      		std Z+17,__zero_reg__
+ 462 01ee 108A      		std Z+16,__zero_reg__
+  55:ssd1306.c     **** 		for (int i=0;i<dev->_pages;i++) {
+ 463               		.stabn	68,0,55,.LM43-.LFBB5
+ 464               	.LM43:
+ 465 01f0 0196      		adiw r24,1
+  55:ssd1306.c     **** 		for (int i=0;i<dev->_pages;i++) {
+ 466               		.stabn	68,0,55,.LM44-.LFBB5
+ 467               	.LM44:
+ 468 01f2 ED57      		subi r30,125
+ 469 01f4 FF4F      		sbci r31,-1
+ 470 01f6 8417      		cp r24,r20
+ 471 01f8 9507      		cpc r25,r21
+ 472 01fa 04F0      		brlt .L16
+ 473               	/* epilogue start */
+ 474               	.LBE7:
+  58:ssd1306.c     **** 		}
+  59:ssd1306.c     **** 	}
+  60:ssd1306.c     **** }
+ 475               		.stabn	68,0,60,.LM45-.LFBB5
+ 476               	.LM45:
+ 477 01fc 0895      		ret
+ 478               	.L14:
+  54:ssd1306.c     **** 		for (int i=0;i<dev->_pages;i++) {
+ 479               		.stabn	68,0,54,.LM46-.LFBB5
+ 480               	.LM46:
+ 481 01fe 8FEF      		ldi r24,lo8(-1)
+ 482 0200 9FEF      		ldi r25,lo8(-1)
+ 483 0202 00C0      		rjmp .L18
+ 484               		.size	ssd1306_software_scroll, .-ssd1306_software_scroll
+ 485               		.stabs	"i:r(0,6)",64,0,55,24
+ 486               		.stabn	192,0,0,.LBB7-.LFBB5
+ 487               		.stabn	224,0,0,.LBE7-.LFBB5
+ 488               	.Lscope5:
+ 489               		.stabs	"",36,0,0,.Lscope5-.LFBB5
+ 490               		.stabs	"ssd1306_scroll_clear:F(0,1)",36,0,104,ssd1306_scroll_clear
+ 491               		.stabs	"dev:P(0,10)",64,0,104,28
+ 492               	.global	ssd1306_scroll_clear
+ 493               		.type	ssd1306_scroll_clear, @function
+ 494               	ssd1306_scroll_clear:
+  61:ssd1306.c     **** 
+  62:ssd1306.c     **** /*
+GAS LISTING /tmp/cchy1VOj.s 			page 11
+
+
+  63:ssd1306.c     **** void ssd1306_scroll_text(SSD1306_t * dev, char * text, int text_len, bool invert) {
+  64:ssd1306.c     **** 	
+  65:ssd1306.c     **** 	if (dev->_scEnable == false) return;
+  66:ssd1306.c     **** 
+  67:ssd1306.c     **** 	void (*func)(SSD1306_t * dev, int page, int seg, uint8_t images);
+  68:ssd1306.c     **** 	if (dev->_address == SPIAddress) {
+  69:ssd1306.c     **** 		func = spi_display_text;
+  70:ssd1306.c     **** 	} 
+  71:ssd1306.c     **** 
+  72:ssd1306.c     **** 	int srcIndex = dev->_scEnd - dev->_scDirection;
+  73:ssd1306.c     **** 	while(1) {
+  74:ssd1306.c     **** 		int dstIndex = srcIndex + dev->_scDirection;
+  75:ssd1306.c     **** 		dev->_page[dstIndex]._valid = dev->_page[srcIndex]._valid;
+  76:ssd1306.c     **** 		dev->_page[dstIndex]._segLen = dev->_page[srcIndex]._segLen;
+  77:ssd1306.c     **** 		for(int seg = 0; seg < dev->_width; seg++) {
+  78:ssd1306.c     **** 			dev->_page[dstIndex]._segs[seg] = dev->_page[srcIndex]._segs[seg];
+  79:ssd1306.c     **** 		}
+  80:ssd1306.c     **** 		
+  81:ssd1306.c     **** 		if (dev->_page[dstIndex]._valid) (*func)(dev, dstIndex, 0,dev->_page[dstIndex]);
+  82:ssd1306.c     **** 		if (srcIndex == dev->_scStart) break;
+  83:ssd1306.c     **** 		srcIndex = srcIndex - dev->_scDirection;
+  84:ssd1306.c     **** 	}
+  85:ssd1306.c     **** 	
+  86:ssd1306.c     **** 	int _text_len = text_len;
+  87:ssd1306.c     **** 	if (_text_len > 16) _text_len = 16;
+  88:ssd1306.c     **** 	
+  89:ssd1306.c     **** 	uint8_t seg = 0;
+  90:ssd1306.c     **** 	uint8_t image[8];
+  91:ssd1306.c     **** 	for (uint8_t i = 0; i < _text_len; i++) {
+  92:ssd1306.c     **** 		memcpy(image, font8x8_basic_tr[(uint8_t)text[i]], 8);
+  93:ssd1306.c     **** 		if (invert) ssd1306_invert(image, 8);
+  94:ssd1306.c     **** 		if (dev->_flip) ssd1306_flip(image, 8);
+  95:ssd1306.c     **** 		(*func)(dev, srcIndex, seg, image);
+  96:ssd1306.c     **** 		for(int j=0;j<8;j++) dev->_page[srcIndex]._segs[seg+j] = image[j];
+  97:ssd1306.c     **** 		seg = seg + 8;
+  98:ssd1306.c     **** 	}
+  99:ssd1306.c     **** 	dev->_page[srcIndex]._valid = true;
+ 100:ssd1306.c     **** 	dev->_page[srcIndex]._segLen = seg;
+ 101:ssd1306.c     **** }
+ 102:ssd1306.c     **** */
+ 103:ssd1306.c     **** 
+ 104:ssd1306.c     **** void ssd1306_scroll_clear(SSD1306_t * dev) {
+ 495               		.stabn	68,0,104,.LM47-.LFBB6
+ 496               	.LM47:
+ 497               	.LFBB6:
+ 498 0204 DF92      		push r13
+ 499 0206 EF92      		push r14
+ 500 0208 FF92      		push r15
+ 501 020a 0F93      		push r16
+ 502 020c 1F93      		push r17
+ 503 020e CF93      		push r28
+ 504 0210 DF93      		push r29
+ 505               	/* prologue: function */
+ 506               	/* frame size = 0 */
+ 507               	/* stack size = 7 */
+ 508               	.L__stack_usage = 7
+ 509 0212 EC01      		movw r28,r24
+GAS LISTING /tmp/cchy1VOj.s 			page 12
+
+
+ 105:ssd1306.c     **** 	
+ 106:ssd1306.c     **** 	if (dev->_scEnable == false) return;
+ 510               		.stabn	68,0,106,.LM48-.LFBB6
+ 511               	.LM48:
+ 512 0214 8885      		ldd r24,Y+8
+ 513 0216 8823      		tst r24
+ 514 0218 01F0      		breq .L19
+ 107:ssd1306.c     **** 
+ 108:ssd1306.c     **** 	int srcIndex = dev->_scEnd - dev->_scDirection;
+ 515               		.stabn	68,0,108,.LM49-.LFBB6
+ 516               	.LM49:
+ 517 021a 0B85      		ldd r16,Y+11
+ 518 021c 1C85      		ldd r17,Y+12
+ 519 021e 8D85      		ldd r24,Y+13
+ 520 0220 9E85      		ldd r25,Y+14
+ 521 0222 081B      		sub r16,r24
+ 522 0224 190B      		sbc r17,r25
+ 523               	.LBB8:
+ 109:ssd1306.c     **** 	while(1) {
+ 110:ssd1306.c     **** 		int dstIndex = srcIndex + dev->_scDirection;
+ 111:ssd1306.c     **** 		ssd1306_clear_line(dev, dstIndex, false);
+ 112:ssd1306.c     **** 		dev->_page[dstIndex]._valid = false;
+ 524               		.stabn	68,0,112,.LM50-.LFBB6
+ 525               	.LM50:
+ 526 0226 83E8      		ldi r24,lo8(-125)
+ 527 0228 D82E      		mov r13,r24
+ 528               	.L21:
+ 110:ssd1306.c     **** 		ssd1306_clear_line(dev, dstIndex, false);
+ 529               		.stabn	68,0,110,.LM51-.LFBB6
+ 530               	.LM51:
+ 531 022a ED84      		ldd r14,Y+13
+ 532 022c FE84      		ldd r15,Y+14
+ 533 022e E00E      		add r14,r16
+ 534 0230 F11E      		adc r15,r17
+ 111:ssd1306.c     **** 		dev->_page[dstIndex]._valid = false;
+ 535               		.stabn	68,0,111,.LM52-.LFBB6
+ 536               	.LM52:
+ 537 0232 40E0      		ldi r20,0
+ 538 0234 B701      		movw r22,r14
+ 539 0236 CE01      		movw r24,r28
+ 540 0238 0E94 0000 		call ssd1306_clear_line
+ 541               		.stabn	68,0,112,.LM53-.LFBB6
+ 542               	.LM53:
+ 543 023c DE9C      		mul r13,r14
+ 544 023e F001      		movw r30,r0
+ 545 0240 DF9C      		mul r13,r15
+ 546 0242 F00D      		add r31,r0
+ 547 0244 1124      		clr __zero_reg__
+ 548 0246 EC0F      		add r30,r28
+ 549 0248 FD1F      		adc r31,r29
+ 550 024a 1786      		std Z+15,__zero_reg__
+ 113:ssd1306.c     **** 		if (dstIndex == dev->_scStart) break;
+ 551               		.stabn	68,0,113,.LM54-.LFBB6
+ 552               	.LM54:
+ 553 024c 8985      		ldd r24,Y+9
+ 554 024e 9A85      		ldd r25,Y+10
+ 555 0250 8E15      		cp r24,r14
+GAS LISTING /tmp/cchy1VOj.s 			page 13
+
+
+ 556 0252 9F05      		cpc r25,r15
+ 557 0254 01F0      		breq .L19
+ 114:ssd1306.c     **** 		srcIndex = srcIndex - dev->_scDirection;
+ 558               		.stabn	68,0,114,.LM55-.LFBB6
+ 559               	.LM55:
+ 560 0256 8D85      		ldd r24,Y+13
+ 561 0258 9E85      		ldd r25,Y+14
+ 562 025a 081B      		sub r16,r24
+ 563 025c 190B      		sbc r17,r25
+ 564               	.LBE8:
+ 109:ssd1306.c     **** 		int dstIndex = srcIndex + dev->_scDirection;
+ 565               		.stabn	68,0,109,.LM56-.LFBB6
+ 566               	.LM56:
+ 567 025e 00C0      		rjmp .L21
+ 568               	.L19:
+ 569               	/* epilogue start */
+ 115:ssd1306.c     **** 	}
+ 116:ssd1306.c     **** }
+ 570               		.stabn	68,0,116,.LM57-.LFBB6
+ 571               	.LM57:
+ 572 0260 DF91      		pop r29
+ 573 0262 CF91      		pop r28
+ 574 0264 1F91      		pop r17
+ 575 0266 0F91      		pop r16
+ 576 0268 FF90      		pop r15
+ 577 026a EF90      		pop r14
+ 578 026c DF90      		pop r13
+ 579 026e 0895      		ret
+ 580               		.size	ssd1306_scroll_clear, .-ssd1306_scroll_clear
+ 581               		.stabs	"srcIndex:r(0,6)",64,0,108,16
+ 582               		.stabn	192,0,0,.LFBB6-.LFBB6
+ 583               		.stabs	"dstIndex:r(0,6)",64,0,110,14
+ 584               		.stabn	192,0,0,.LBB8-.LFBB6
+ 585               		.stabn	224,0,0,.LBE8-.LFBB6
+ 586               		.stabn	224,0,0,.Lscope6-.LFBB6
+ 587               	.Lscope6:
+ 588               		.stabs	"",36,0,0,.Lscope6-.LFBB6
+ 589               		.stabs	"ssd1306_hardware_scroll:F(0,1)",36,0,119,ssd1306_hardware_scroll
+ 590               		.stabs	"dev:P(0,10)",64,0,119,30
+ 591               		.stabs	"scroll:P(0,22)=(0,23)=@s8;eSCROLL_RIGHT:1,SCROLL_LEFT:2,SCROLL_DOWN:3,SCROLL_UP:4,SCROLL_S
+ 592               		.stabs	" :T(0,23)",128,0,0,0
+ 593               	.global	ssd1306_hardware_scroll
+ 594               		.type	ssd1306_hardware_scroll, @function
+ 595               	ssd1306_hardware_scroll:
+ 117:ssd1306.c     **** 
+ 118:ssd1306.c     **** 
+ 119:ssd1306.c     **** void ssd1306_hardware_scroll(SSD1306_t * dev, ssd1306_scroll_type_t scroll) {
+ 596               		.stabn	68,0,119,.LM58-.LFBB7
+ 597               	.LM58:
+ 598               	.LFBB7:
+ 599               	/* prologue: function */
+ 600               	/* frame size = 0 */
+ 601               	/* stack size = 0 */
+ 602               	.L__stack_usage = 0
+ 603 0270 FC01      		movw r30,r24
+ 120:ssd1306.c     **** 	if (dev->_address == SPIAddress) {
+ 604               		.stabn	68,0,120,.LM59-.LFBB7
+GAS LISTING /tmp/cchy1VOj.s 			page 14
+
+
+ 605               	.LM59:
+ 606 0272 8081      		ld r24,Z
+ 607 0274 9181      		ldd r25,Z+1
+ 608 0276 8F3F      		cpi r24,-1
+ 609 0278 9105      		cpc r25,__zero_reg__
+ 610 027a 01F4      		brne .L25
+ 121:ssd1306.c     **** 		spi_hardware_scroll(dev, scroll);
+ 611               		.stabn	68,0,121,.LM60-.LFBB7
+ 612               	.LM60:
+ 613 027c CF01      		movw r24,r30
+ 614 027e 0C94 0000 		jmp spi_hardware_scroll
+ 615               	.L25:
+ 616               	/* epilogue start */
+ 122:ssd1306.c     **** 	} 
+ 123:ssd1306.c     **** }
+ 617               		.stabn	68,0,123,.LM61-.LFBB7
+ 618               	.LM61:
+ 619 0282 0895      		ret
+ 620               		.size	ssd1306_hardware_scroll, .-ssd1306_hardware_scroll
+ 621               	.Lscope7:
+ 622               		.stabs	"",36,0,0,.Lscope7-.LFBB7
+ 623               		.stabs	"ssd1306_invert:F(0,1)",36,0,125,ssd1306_invert
+ 624               		.stabs	"buf:P(0,24)=*(0,2)",64,0,125,24
+ 625               		.stabs	"blen:P(0,25)=(0,26)=r(0,26);0;0177777;",64,0,125,22
+ 626               		.stabs	"size_t:t(0,25)",128,0,209,0
+ 627               		.stabs	"unsigned int:t(0,26)",128,0,0,0
+ 628               	.global	ssd1306_invert
+ 629               		.type	ssd1306_invert, @function
+ 630               	ssd1306_invert:
+ 124:ssd1306.c     **** 
+ 125:ssd1306.c     **** void ssd1306_invert(uint8_t *buf, size_t blen) {
+ 631               		.stabn	68,0,125,.LM62-.LFBB8
+ 632               	.LM62:
+ 633               	.LFBB8:
+ 634               	/* prologue: function */
+ 635               	/* frame size = 0 */
+ 636               	/* stack size = 0 */
+ 637               	.L__stack_usage = 0
+ 638 0284 FC01      		movw r30,r24
+ 639 0286 680F      		add r22,r24
+ 640 0288 791F      		adc r23,r25
+ 641               	.L28:
+ 642               	.LBB9:
+ 126:ssd1306.c     **** 	uint8_t wk;
+ 127:ssd1306.c     **** 	for(int i=0; i<blen; i++){
+ 643               		.stabn	68,0,127,.LM63-.LFBB8
+ 644               	.LM63:
+ 645 028a E617      		cp r30,r22
+ 646 028c F707      		cpc r31,r23
+ 647 028e 01F4      		brne .L29
+ 648               	/* epilogue start */
+ 649               	.LBE9:
+ 128:ssd1306.c     **** 		wk = buf[i];
+ 129:ssd1306.c     **** 		buf[i] = ~wk;
+ 130:ssd1306.c     **** 	}
+ 131:ssd1306.c     **** }
+ 650               		.stabn	68,0,131,.LM64-.LFBB8
+GAS LISTING /tmp/cchy1VOj.s 			page 15
+
+
+ 651               	.LM64:
+ 652 0290 0895      		ret
+ 653               	.L29:
+ 654               	.LBB10:
+ 128:ssd1306.c     **** 		wk = buf[i];
+ 655               		.stabn	68,0,128,.LM65-.LFBB8
+ 656               	.LM65:
+ 657 0292 8191      		ld r24,Z+
+ 129:ssd1306.c     **** 	}
+ 658               		.stabn	68,0,129,.LM66-.LFBB8
+ 659               	.LM66:
+ 660 0294 DF01      		movw r26,r30
+ 661 0296 1197      		sbiw r26,1
+ 662 0298 8095      		com r24
+ 663 029a 8C93      		st X,r24
+ 664 029c 00C0      		rjmp .L28
+ 665               	.LBE10:
+ 666               		.size	ssd1306_invert, .-ssd1306_invert
+ 667               		.stabs	"wk:r(0,2)",64,0,126,24
+ 668               		.stabn	192,0,0,.LFBB8-.LFBB8
+ 669               		.stabn	224,0,0,.Lscope8-.LFBB8
+ 670               	.Lscope8:
+ 671               		.stabs	"",36,0,0,.Lscope8-.LFBB8
+ 672               		.stabs	"ssd1306_rotate:F(0,2)",36,0,142,ssd1306_rotate
+ 673               		.stabs	"ch1:P(0,2)",64,0,142,25
+ 674               	.global	ssd1306_rotate
+ 675               		.type	ssd1306_rotate, @function
+ 676               	ssd1306_rotate:
+ 132:ssd1306.c     **** 
+ 133:ssd1306.c     **** // Flip upside down
+ 134:ssd1306.c     **** void ssd1306_flip(uint8_t *buf, size_t blen) {
+ 135:ssd1306.c     **** 	for(int i=0; i<blen; i++){
+ 136:ssd1306.c     **** 		buf[i] = ssd1306_rotate(buf[i]);
+ 137:ssd1306.c     **** 	}
+ 138:ssd1306.c     **** }
+ 139:ssd1306.c     **** 
+ 140:ssd1306.c     **** // Rotate 8-bit data
+ 141:ssd1306.c     **** // 0x12-->0x48
+ 142:ssd1306.c     **** uint8_t ssd1306_rotate(uint8_t ch1) {
+ 677               		.stabn	68,0,142,.LM67-.LFBB9
+ 678               	.LM67:
+ 679               	.LFBB9:
+ 680               	/* prologue: function */
+ 681               	/* frame size = 0 */
+ 682               	/* stack size = 0 */
+ 683               	.L__stack_usage = 0
+ 684 029e 982F      		mov r25,r24
+ 685               		.stabn	68,0,142,.LM68-.LFBB9
+ 686               	.LM68:
+ 687 02a0 28E0      		ldi r18,lo8(8)
+ 688 02a2 30E0      		ldi r19,0
+ 143:ssd1306.c     **** 	uint8_t ch2 = 0;
+ 689               		.stabn	68,0,143,.LM69-.LFBB9
+ 690               	.LM69:
+ 691 02a4 80E0      		ldi r24,0
+ 692               	.L31:
+ 693               	.LBB11:
+GAS LISTING /tmp/cchy1VOj.s 			page 16
+
+
+ 144:ssd1306.c     **** 	for (int j=0;j<8;j++) {
+ 145:ssd1306.c     **** 		ch2 = (ch2 << 1) + (ch1 & 0x01);
+ 694               		.stabn	68,0,145,.LM70-.LFBB9
+ 695               	.LM70:
+ 696 02a6 880F      		lsl r24
+ 697               		.stabn	68,0,145,.LM71-.LFBB9
+ 698               	.LM71:
+ 699 02a8 492F      		mov r20,r25
+ 700 02aa 4170      		andi r20,lo8(1)
+ 701               		.stabn	68,0,145,.LM72-.LFBB9
+ 702               	.LM72:
+ 703 02ac 840F      		add r24,r20
+ 146:ssd1306.c     **** 		ch1 = ch1 >> 1;
+ 704               		.stabn	68,0,146,.LM73-.LFBB9
+ 705               	.LM73:
+ 706 02ae 9695      		lsr r25
+ 144:ssd1306.c     **** 	for (int j=0;j<8;j++) {
+ 707               		.stabn	68,0,144,.LM74-.LFBB9
+ 708               	.LM74:
+ 709 02b0 2150      		subi r18,1
+ 710 02b2 3109      		sbc r19,__zero_reg__
+ 711 02b4 01F4      		brne .L31
+ 712               	/* epilogue start */
+ 713               	.LBE11:
+ 147:ssd1306.c     **** 	}
+ 148:ssd1306.c     **** 	return ch2;
+ 149:ssd1306.c     **** }
+ 714               		.stabn	68,0,149,.LM75-.LFBB9
+ 715               	.LM75:
+ 716 02b6 0895      		ret
+ 717               		.size	ssd1306_rotate, .-ssd1306_rotate
+ 718               		.stabs	"ch2:r(0,2)",64,0,143,24
+ 719               		.stabn	192,0,0,.LFBB9-.LFBB9
+ 720               		.stabn	224,0,0,.Lscope9-.LFBB9
+ 721               	.Lscope9:
+ 722               		.stabs	"",36,0,0,.Lscope9-.LFBB9
+ 723               		.stabs	"ssd1306_flip:F(0,1)",36,0,134,ssd1306_flip
+ 724               		.stabs	"buf:P(0,24)",64,0,134,24
+ 725               		.stabs	"blen:P(0,25)",64,0,134,22
+ 726               	.global	ssd1306_flip
+ 727               		.type	ssd1306_flip, @function
+ 728               	ssd1306_flip:
+ 134:ssd1306.c     **** 	for(int i=0; i<blen; i++){
+ 729               		.stabn	68,0,134,.LM76-.LFBB10
+ 730               	.LM76:
+ 731               	.LFBB10:
+ 732 02b8 0F93      		push r16
+ 733 02ba 1F93      		push r17
+ 734 02bc CF93      		push r28
+ 735 02be DF93      		push r29
+ 736               	/* prologue: function */
+ 737               	/* frame size = 0 */
+ 738               	/* stack size = 4 */
+ 739               	.L__stack_usage = 4
+ 740 02c0 EC01      		movw r28,r24
+ 741 02c2 8C01      		movw r16,r24
+ 742 02c4 060F      		add r16,r22
+GAS LISTING /tmp/cchy1VOj.s 			page 17
+
+
+ 743 02c6 171F      		adc r17,r23
+ 744               	.L34:
+ 745               	.LBB12:
+ 135:ssd1306.c     **** 		buf[i] = ssd1306_rotate(buf[i]);
+ 746               		.stabn	68,0,135,.LM77-.LFBB10
+ 747               	.LM77:
+ 748 02c8 C017      		cp r28,r16
+ 749 02ca D107      		cpc r29,r17
+ 750 02cc 01F4      		brne .L35
+ 751               	/* epilogue start */
+ 752               	.LBE12:
+ 138:ssd1306.c     **** 
+ 753               		.stabn	68,0,138,.LM78-.LFBB10
+ 754               	.LM78:
+ 755 02ce DF91      		pop r29
+ 756 02d0 CF91      		pop r28
+ 757 02d2 1F91      		pop r17
+ 758 02d4 0F91      		pop r16
+ 759 02d6 0895      		ret
+ 760               	.L35:
+ 761               	.LBB13:
+ 136:ssd1306.c     **** 	}
+ 762               		.stabn	68,0,136,.LM79-.LFBB10
+ 763               	.LM79:
+ 764 02d8 8991      		ld r24,Y+
+ 765 02da 0E94 0000 		call ssd1306_rotate
+ 136:ssd1306.c     **** 	}
+ 766               		.stabn	68,0,136,.LM80-.LFBB10
+ 767               	.LM80:
+ 768 02de FE01      		movw r30,r28
+ 769 02e0 3197      		sbiw r30,1
+ 770 02e2 8083      		st Z,r24
+ 771 02e4 00C0      		rjmp .L34
+ 772               	.LBE13:
+ 773               		.size	ssd1306_flip, .-ssd1306_flip
+ 774               	.Lscope10:
+ 775               		.stabs	"",36,0,0,.Lscope10-.LFBB10
+ 776               		.stabs	"ssd1306_fadeout:F(0,1)",36,0,152,ssd1306_fadeout
+ 777               		.stabs	"dev:P(0,10)",64,0,152,16
+ 778               	.global	ssd1306_fadeout
+ 779               		.type	ssd1306_fadeout, @function
+ 780               	ssd1306_fadeout:
+ 150:ssd1306.c     **** 
+ 151:ssd1306.c     **** 
+ 152:ssd1306.c     **** void ssd1306_fadeout(SSD1306_t * dev) {
+ 781               		.stabn	68,0,152,.LM81-.LFBB11
+ 782               	.LM81:
+ 783               	.LFBB11:
+ 784 02e6 6F92      		push r6
+ 785 02e8 7F92      		push r7
+ 786 02ea 8F92      		push r8
+ 787 02ec 9F92      		push r9
+ 788 02ee AF92      		push r10
+ 789 02f0 BF92      		push r11
+ 790 02f2 CF92      		push r12
+ 791 02f4 DF92      		push r13
+ 792 02f6 EF92      		push r14
+GAS LISTING /tmp/cchy1VOj.s 			page 18
+
+
+ 793 02f8 FF92      		push r15
+ 794 02fa 0F93      		push r16
+ 795 02fc 1F93      		push r17
+ 796 02fe CF93      		push r28
+ 797 0300 DF93      		push r29
+ 798 0302 CDB7      		in r28,__SP_L__
+ 799 0304 DEB7      		in r29,__SP_H__
+ 800 0306 2897      		sbiw r28,8
+ 801 0308 0FB6      		in __tmp_reg__,__SREG__
+ 802 030a F894      		cli
+ 803 030c DEBF      		out __SP_H__,r29
+ 804 030e 0FBE      		out __SREG__,__tmp_reg__
+ 805 0310 CDBF      		out __SP_L__,r28
+ 806               	/* prologue: function */
+ 807               	/* frame size = 8 */
+ 808               	/* stack size = 22 */
+ 809               	.L__stack_usage = 22
+ 810 0312 8C01      		movw r16,r24
+ 811               	.LBB14:
+ 153:ssd1306.c     **** 	void (*func)(SSD1306_t * dev, int page, int seg, uint8_t images[8]);
+ 154:ssd1306.c     **** 	if (dev->_address == SPIAddress) {
+ 155:ssd1306.c     **** 		func = spi_display_text;
+ 156:ssd1306.c     **** 	}
+ 157:ssd1306.c     **** 
+ 158:ssd1306.c     **** 	uint8_t image[8];
+ 159:ssd1306.c     ****   for (int x=0; x<8; x++) {
+ 160:ssd1306.c     ****     image[x] = 0XFF;
+ 812               		.stabn	68,0,160,.LM82-.LFBB11
+ 813               	.LM82:
+ 814 0314 48E0      		ldi r20,lo8(8)
+ 815 0316 50E0      		ldi r21,0
+ 816 0318 6FEF      		ldi r22,lo8(-1)
+ 817 031a 70E0      		ldi r23,0
+ 818 031c CE01      		movw r24,r28
+ 819 031e 0196      		adiw r24,1
+ 820 0320 6C01      		movw r12,r24
+ 821 0322 0E94 0000 		call memset
+ 822               	.LBE14:
+ 823               	.LBB15:
+ 161:ssd1306.c     ****   }
+ 162:ssd1306.c     **** 	for(int page=0; page<dev->_pages; page++) {
+ 824               		.stabn	68,0,162,.LM83-.LFBB11
+ 825               	.LM83:
+ 826 0326 F12C      		mov r15,__zero_reg__
+ 827 0328 E12C      		mov r14,__zero_reg__
+ 828 032a 7C2C      		mov r7,r12
+ 829 032c 6D2C      		mov r6,r13
+ 830               	.LBB16:
+ 163:ssd1306.c     **** 		for(int line=0; line<8; line++) {
+ 164:ssd1306.c     **** 			if (dev->_flip) {
+ 831               		.stabn	68,0,164,.LM84-.LFBB11
+ 832               	.LM84:
+ 833 032e 5801      		movw r10,r16
+ 834 0330 99ED      		ldi r25,-39
+ 835 0332 A91A      		sub r10,r25
+ 836 0334 9BEF      		ldi r25,-5
+ 837 0336 B90A      		sbc r11,r25
+GAS LISTING /tmp/cchy1VOj.s 			page 19
+
+
+ 838               	.L37:
+ 839               	.LBE16:
+ 162:ssd1306.c     **** 		for(int line=0; line<8; line++) {
+ 840               		.stabn	68,0,162,.LM85-.LFBB11
+ 841               	.LM85:
+ 842 0338 F801      		movw r30,r16
+ 843 033a 8681      		ldd r24,Z+6
+ 844 033c 9781      		ldd r25,Z+7
+ 845 033e E816      		cp r14,r24
+ 846 0340 F906      		cpc r15,r25
+ 847 0342 04F0      		brlt .L42
+ 848               	/* epilogue start */
+ 849               	.LBE15:
+ 165:ssd1306.c     **** 				image[0] = image[0] >> 1;
+ 166:ssd1306.c     **** 			} else {
+ 167:ssd1306.c     **** 				image[0] = image[0] << 1;
+ 168:ssd1306.c     **** 			}
+ 169:ssd1306.c     **** 			for(int seg=0; seg<128; seg++) {
+ 170:ssd1306.c     **** 				(*func)(dev, page, seg, image);
+ 171:ssd1306.c     **** 			}
+ 172:ssd1306.c     **** 		}
+ 173:ssd1306.c     **** 	}
+ 174:ssd1306.c     **** }
+ 850               		.stabn	68,0,174,.LM86-.LFBB11
+ 851               	.LM86:
+ 852 0344 2896      		adiw r28,8
+ 853 0346 0FB6      		in __tmp_reg__,__SREG__
+ 854 0348 F894      		cli
+ 855 034a DEBF      		out __SP_H__,r29
+ 856 034c 0FBE      		out __SREG__,__tmp_reg__
+ 857 034e CDBF      		out __SP_L__,r28
+ 858 0350 DF91      		pop r29
+ 859 0352 CF91      		pop r28
+ 860 0354 1F91      		pop r17
+ 861 0356 0F91      		pop r16
+ 862 0358 FF90      		pop r15
+ 863 035a EF90      		pop r14
+ 864 035c DF90      		pop r13
+ 865 035e CF90      		pop r12
+ 866 0360 BF90      		pop r11
+ 867 0362 AF90      		pop r10
+ 868 0364 9F90      		pop r9
+ 869 0366 8F90      		pop r8
+ 870 0368 7F90      		pop r7
+ 871 036a 6F90      		pop r6
+ 872 036c 0895      		ret
+ 873               	.L42:
+ 874               	.LBB21:
+ 875 036e 88E0      		ldi r24,lo8(8)
+ 876 0370 C82E      		mov r12,r24
+ 877 0372 D12C      		mov r13,__zero_reg__
+ 878               	.L41:
+ 879               	.LBB18:
+ 165:ssd1306.c     **** 				image[0] = image[0] >> 1;
+ 880               		.stabn	68,0,165,.LM87-.LFBB11
+ 881               	.LM87:
+ 882 0374 8981      		ldd r24,Y+1
+GAS LISTING /tmp/cchy1VOj.s 			page 20
+
+
+ 164:ssd1306.c     **** 				image[0] = image[0] >> 1;
+ 883               		.stabn	68,0,164,.LM88-.LFBB11
+ 884               	.LM88:
+ 885 0376 F501      		movw r30,r10
+ 886 0378 9081      		ld r25,Z
+ 887 037a 9923      		tst r25
+ 888 037c 01F0      		breq .L38
+ 165:ssd1306.c     **** 				image[0] = image[0] >> 1;
+ 889               		.stabn	68,0,165,.LM89-.LFBB11
+ 890               	.LM89:
+ 891 037e 8695      		lsr r24
+ 892               	.L45:
+ 167:ssd1306.c     **** 			}
+ 893               		.stabn	68,0,167,.LM90-.LFBB11
+ 894               	.LM90:
+ 895 0380 8983      		std Y+1,r24
+ 896               	.LBE18:
+ 897 0382 912C      		mov r9,__zero_reg__
+ 898 0384 812C      		mov r8,__zero_reg__
+ 899               	.L40:
+ 900               	.LBB19:
+ 901               	.LBB17:
+ 170:ssd1306.c     **** 			}
+ 902               		.stabn	68,0,170,.LM91-.LFBB11
+ 903               	.LM91:
+ 904 0386 272D      		mov r18,r7
+ 905 0388 362D      		mov r19,r6
+ 906 038a A401      		movw r20,r8
+ 907 038c B701      		movw r22,r14
+ 908 038e C801      		movw r24,r16
+ 909 0390 0E94 0000 		call spi_display_text
+ 169:ssd1306.c     **** 				(*func)(dev, page, seg, image);
+ 910               		.stabn	68,0,169,.LM92-.LFBB11
+ 911               	.LM92:
+ 912 0394 FFEF      		ldi r31,-1
+ 913 0396 8F1A      		sub r8,r31
+ 914 0398 9F0A      		sbc r9,r31
+ 169:ssd1306.c     **** 				(*func)(dev, page, seg, image);
+ 915               		.stabn	68,0,169,.LM93-.LFBB11
+ 916               	.LM93:
+ 917 039a 80E8      		ldi r24,-128
+ 918 039c 8816      		cp r8,r24
+ 919 039e 9104      		cpc r9,__zero_reg__
+ 920 03a0 01F4      		brne .L40
+ 921               	.LBE17:
+ 163:ssd1306.c     **** 			if (dev->_flip) {
+ 922               		.stabn	68,0,163,.LM94-.LFBB11
+ 923               	.LM94:
+ 924 03a2 91E0      		ldi r25,1
+ 925 03a4 C91A      		sub r12,r25
+ 926 03a6 D108      		sbc r13,__zero_reg__
+ 927 03a8 01F4      		brne .L41
+ 928               	.LBE19:
+ 162:ssd1306.c     **** 		for(int line=0; line<8; line++) {
+ 929               		.stabn	68,0,162,.LM95-.LFBB11
+ 930               	.LM95:
+ 931 03aa EFEF      		ldi r30,-1
+GAS LISTING /tmp/cchy1VOj.s 			page 21
+
+
+ 932 03ac EE1A      		sub r14,r30
+ 933 03ae FE0A      		sbc r15,r30
+ 934 03b0 00C0      		rjmp .L37
+ 935               	.L38:
+ 936               	.LBB20:
+ 167:ssd1306.c     **** 			}
+ 937               		.stabn	68,0,167,.LM96-.LFBB11
+ 938               	.LM96:
+ 939 03b2 880F      		lsl r24
+ 940 03b4 00C0      		rjmp .L45
+ 941               	.LBE20:
+ 942               	.LBE21:
+ 943               		.size	ssd1306_fadeout, .-ssd1306_fadeout
+ 944               		.stabs	"image:(0,8)",128,0,158,1
+ 945               		.stabn	192,0,0,.LFBB11-.LFBB11
+ 946               		.stabs	"page:r(0,6)",64,0,162,14
+ 947               		.stabn	192,0,0,.LBB15-.LFBB11
+ 948               		.stabs	"seg:r(0,6)",64,0,169,8
+ 949               		.stabn	192,0,0,.LBB17-.LFBB11
+ 950               		.stabn	224,0,0,.LBE17-.LFBB11
+ 951               		.stabn	224,0,0,.LBE15-.LFBB11
+ 952               		.stabs	"page:r(0,6)",64,0,162,14
+ 953               		.stabn	192,0,0,.LBB21-.LFBB11
+ 954               		.stabn	224,0,0,.LBE21-.LFBB11
+ 955               		.stabn	224,0,0,.Lscope11-.LFBB11
+ 956               	.Lscope11:
+ 957               		.stabs	"",36,0,0,.Lscope11-.LFBB11
+ 958               		.section	.rodata
+ 959               		.type	font8x8_basic_tr, @object
+ 960               		.size	font8x8_basic_tr, 1024
+ 961               	font8x8_basic_tr:
+ 962 0000 00        		.string	""
+ 963 0001 00        		.string	""
+ 964 0002 00        		.string	""
+ 965 0003 00        		.string	""
+ 966 0004 00        		.string	""
+ 967 0005 00        		.string	""
+ 968 0006 00        		.string	""
+ 969 0007 00        		.string	""
+ 970 0008 00        		.string	""
+ 971 0009 0402 FF02 		.string	"\004\002\377\002\004"
+ 971      0400 
+ 972 000f 00        		.string	""
+ 973 0010 00        		.string	""
+ 974 0011 2040 FF40 		.string	" @\377@ "
+ 974      2000 
+ 975 0017 00        		.string	""
+ 976 0018 00        		.string	""
+ 977 0019 00        		.string	""
+ 978 001a 00        		.string	""
+ 979 001b 00        		.string	""
+ 980 001c 00        		.string	""
+ 981 001d 00        		.string	""
+ 982 001e 00        		.string	""
+ 983 001f 00        		.string	""
+ 984 0020 00        		.string	""
+ 985 0021 00        		.string	""
+GAS LISTING /tmp/cchy1VOj.s 			page 22
+
+
+ 986 0022 00        		.string	""
+ 987 0023 00        		.string	""
+ 988 0024 00        		.string	""
+ 989 0025 00        		.string	""
+ 990 0026 00        		.string	""
+ 991 0027 00        		.string	""
+ 992 0028 00        		.string	""
+ 993 0029 00        		.string	""
+ 994 002a 00        		.string	""
+ 995 002b 00        		.string	""
+ 996 002c 00        		.string	""
+ 997 002d 00        		.string	""
+ 998 002e 00        		.string	""
+ 999 002f 00        		.string	""
+ 1000 0030 00        		.string	""
+ 1001 0031 00        		.string	""
+ 1002 0032 00        		.string	""
+ 1003 0033 00        		.string	""
+ 1004 0034 00        		.string	""
+ 1005 0035 00        		.string	""
+ 1006 0036 00        		.string	""
+ 1007 0037 00        		.string	""
+ 1008 0038 00        		.string	""
+ 1009 0039 00        		.string	""
+ 1010 003a 00        		.string	""
+ 1011 003b 00        		.string	""
+ 1012 003c 00        		.string	""
+ 1013 003d 00        		.string	""
+ 1014 003e 00        		.string	""
+ 1015 003f 00        		.string	""
+ 1016 0040 00        		.string	""
+ 1017 0041 00        		.string	""
+ 1018 0042 00        		.string	""
+ 1019 0043 00        		.string	""
+ 1020 0044 00        		.string	""
+ 1021 0045 00        		.string	""
+ 1022 0046 00        		.string	""
+ 1023 0047 00        		.string	""
+ 1024 0048 00        		.string	""
+ 1025 0049 00        		.string	""
+ 1026 004a 00        		.string	""
+ 1027 004b 00        		.string	""
+ 1028 004c 00        		.string	""
+ 1029 004d 00        		.string	""
+ 1030 004e 00        		.string	""
+ 1031 004f 00        		.string	""
+ 1032 0050 00        		.string	""
+ 1033 0051 00        		.string	""
+ 1034 0052 00        		.string	""
+ 1035 0053 00        		.string	""
+ 1036 0054 00        		.string	""
+ 1037 0055 00        		.string	""
+ 1038 0056 00        		.string	""
+ 1039 0057 00        		.string	""
+ 1040 0058 00        		.string	""
+ 1041 0059 00        		.string	""
+ 1042 005a 00        		.string	""
+GAS LISTING /tmp/cchy1VOj.s 			page 23
+
+
+ 1043 005b 00        		.string	""
+ 1044 005c 00        		.string	""
+ 1045 005d 00        		.string	""
+ 1046 005e 00        		.string	""
+ 1047 005f 00        		.string	""
+ 1048 0060 00        		.string	""
+ 1049 0061 00        		.string	""
+ 1050 0062 00        		.string	""
+ 1051 0063 00        		.string	""
+ 1052 0064 00        		.string	""
+ 1053 0065 00        		.string	""
+ 1054 0066 00        		.string	""
+ 1055 0067 00        		.string	""
+ 1056 0068 00        		.string	""
+ 1057 0069 00        		.string	""
+ 1058 006a 00        		.string	""
+ 1059 006b 00        		.string	""
+ 1060 006c 00        		.string	""
+ 1061 006d 00        		.string	""
+ 1062 006e 00        		.string	""
+ 1063 006f 00        		.string	""
+ 1064 0070 00        		.string	""
+ 1065 0071 00        		.string	""
+ 1066 0072 00        		.string	""
+ 1067 0073 00        		.string	""
+ 1068 0074 00        		.string	""
+ 1069 0075 00        		.string	""
+ 1070 0076 00        		.string	""
+ 1071 0077 00        		.string	""
+ 1072 0078 00        		.string	""
+ 1073 0079 00        		.string	""
+ 1074 007a 00        		.string	""
+ 1075 007b 00        		.string	""
+ 1076 007c 00        		.string	""
+ 1077 007d 00        		.string	""
+ 1078 007e 00        		.string	""
+ 1079 007f 00        		.string	""
+ 1080 0080 00        		.string	""
+ 1081 0081 00        		.string	""
+ 1082 0082 00        		.string	""
+ 1083 0083 00        		.string	""
+ 1084 0084 00        		.string	""
+ 1085 0085 00        		.string	""
+ 1086 0086 00        		.string	""
+ 1087 0087 00        		.string	""
+ 1088 0088 00        		.string	""
+ 1089 0089 00        		.string	""
+ 1090 008a 00        		.string	""
+ 1091 008b 00        		.string	""
+ 1092 008c 00        		.string	""
+ 1093 008d 00        		.string	""
+ 1094 008e 00        		.string	""
+ 1095 008f 00        		.string	""
+ 1096 0090 00        		.string	""
+ 1097 0091 00        		.string	""
+ 1098 0092 00        		.string	""
+ 1099 0093 00        		.string	""
+GAS LISTING /tmp/cchy1VOj.s 			page 24
+
+
+ 1100 0094 00        		.string	""
+ 1101 0095 00        		.string	""
+ 1102 0096 00        		.string	""
+ 1103 0097 00        		.string	""
+ 1104 0098 00        		.string	""
+ 1105 0099 00        		.string	""
+ 1106 009a 00        		.string	""
+ 1107 009b 00        		.string	""
+ 1108 009c 00        		.string	""
+ 1109 009d 00        		.string	""
+ 1110 009e 00        		.string	""
+ 1111 009f 00        		.string	""
+ 1112 00a0 00        		.string	""
+ 1113 00a1 00        		.string	""
+ 1114 00a2 00        		.string	""
+ 1115 00a3 00        		.string	""
+ 1116 00a4 00        		.string	""
+ 1117 00a5 00        		.string	""
+ 1118 00a6 00        		.string	""
+ 1119 00a7 00        		.string	""
+ 1120 00a8 00        		.string	""
+ 1121 00a9 00        		.string	""
+ 1122 00aa 00        		.string	""
+ 1123 00ab 00        		.string	""
+ 1124 00ac 00        		.string	""
+ 1125 00ad 00        		.string	""
+ 1126 00ae 00        		.string	""
+ 1127 00af 00        		.string	""
+ 1128 00b0 00        		.string	""
+ 1129 00b1 00        		.string	""
+ 1130 00b2 00        		.string	""
+ 1131 00b3 00        		.string	""
+ 1132 00b4 00        		.string	""
+ 1133 00b5 00        		.string	""
+ 1134 00b6 00        		.string	""
+ 1135 00b7 00        		.string	""
+ 1136 00b8 00        		.string	""
+ 1137 00b9 00        		.string	""
+ 1138 00ba 00        		.string	""
+ 1139 00bb 00        		.string	""
+ 1140 00bc 00        		.string	""
+ 1141 00bd 00        		.string	""
+ 1142 00be 00        		.string	""
+ 1143 00bf 00        		.string	""
+ 1144 00c0 00        		.string	""
+ 1145 00c1 00        		.string	""
+ 1146 00c2 00        		.string	""
+ 1147 00c3 00        		.string	""
+ 1148 00c4 00        		.string	""
+ 1149 00c5 00        		.string	""
+ 1150 00c6 00        		.string	""
+ 1151 00c7 00        		.string	""
+ 1152 00c8 00        		.string	""
+ 1153 00c9 00        		.string	""
+ 1154 00ca 00        		.string	""
+ 1155 00cb 00        		.string	""
+ 1156 00cc 00        		.string	""
+GAS LISTING /tmp/cchy1VOj.s 			page 25
+
+
+ 1157 00cd 00        		.string	""
+ 1158 00ce 00        		.string	""
+ 1159 00cf 00        		.string	""
+ 1160 00d0 00        		.string	""
+ 1161 00d1 00        		.string	""
+ 1162 00d2 00        		.string	""
+ 1163 00d3 00        		.string	""
+ 1164 00d4 00        		.string	""
+ 1165 00d5 00        		.string	""
+ 1166 00d6 00        		.string	""
+ 1167 00d7 00        		.string	""
+ 1168 00d8 00        		.string	""
+ 1169 00d9 00        		.string	""
+ 1170 00da 00        		.string	""
+ 1171 00db 00        		.string	""
+ 1172 00dc 00        		.string	""
+ 1173 00dd 00        		.string	""
+ 1174 00de 00        		.string	""
+ 1175 00df 00        		.string	""
+ 1176 00e0 00        		.string	""
+ 1177 00e1 00        		.string	""
+ 1178 00e2 00        		.string	""
+ 1179 00e3 00        		.string	""
+ 1180 00e4 00        		.string	""
+ 1181 00e5 00        		.string	""
+ 1182 00e6 00        		.string	""
+ 1183 00e7 00        		.string	""
+ 1184 00e8 00        		.string	""
+ 1185 00e9 00        		.string	""
+ 1186 00ea 00        		.string	""
+ 1187 00eb 00        		.string	""
+ 1188 00ec 00        		.string	""
+ 1189 00ed 00        		.string	""
+ 1190 00ee 00        		.string	""
+ 1191 00ef 00        		.string	""
+ 1192 00f0 00        		.string	""
+ 1193 00f1 00        		.string	""
+ 1194 00f2 00        		.string	""
+ 1195 00f3 00        		.string	""
+ 1196 00f4 00        		.string	""
+ 1197 00f5 00        		.string	""
+ 1198 00f6 00        		.string	""
+ 1199 00f7 00        		.string	""
+ 1200 00f8 00        		.string	""
+ 1201 00f9 00        		.string	""
+ 1202 00fa 00        		.string	""
+ 1203 00fb 00        		.string	""
+ 1204 00fc 00        		.string	""
+ 1205 00fd 00        		.string	""
+ 1206 00fe 00        		.string	""
+ 1207 00ff 00        		.string	""
+ 1208 0100 00        		.string	""
+ 1209 0101 00        		.string	""
+ 1210 0102 00        		.string	""
+ 1211 0103 00        		.string	""
+ 1212 0104 00        		.string	""
+ 1213 0105 00        		.string	""
+GAS LISTING /tmp/cchy1VOj.s 			page 26
+
+
+ 1214 0106 00        		.string	""
+ 1215 0107 00        		.string	""
+ 1216 0108 00        		.string	""
+ 1217 0109 00        		.string	""
+ 1218 010a 065F 5F06 		.string	"\006__\006"
+ 1218      00
+ 1219 010f 00        		.string	""
+ 1220 0110 00        		.string	""
+ 1221 0111 0303 00   		.string	"\003\003"
+ 1222 0114 0303 00   		.string	"\003\003"
+ 1223 0117 00        		.string	""
+ 1224 0118 147F 7F14 		.string	"\024\177\177\024\177\177\024"
+ 1224      7F7F 1400 
+ 1225 0120 242E 6B6B 		.string	"$.kk:\022"
+ 1225      3A12 00
+ 1226 0127 00        		.string	""
+ 1227 0128 4666 3018 		.string	"Ff0\030\ffb"
+ 1227      0C66 6200 
+ 1228 0130 307A 4F5D 		.string	"0zO]7zH"
+ 1228      377A 4800 
+ 1229 0138 0407 0300 		.string	"\004\007\003"
+ 1230 013c 00        		.string	""
+ 1231 013d 00        		.string	""
+ 1232 013e 00        		.string	""
+ 1233 013f 00        		.string	""
+ 1234 0140 00        		.string	""
+ 1235 0141 1C3E 6341 		.string	"\034>cA"
+ 1235      00
+ 1236 0146 00        		.string	""
+ 1237 0147 00        		.string	""
+ 1238 0148 00        		.string	""
+ 1239 0149 4163 3E1C 		.string	"Ac>\034"
+ 1239      00
+ 1240 014e 00        		.string	""
+ 1241 014f 00        		.string	""
+ 1242 0150 082A 3E1C 		.ascii	"\b*>\034\034>*\b"
+ 1242      1C3E 2A08 
+ 1243 0158 0808 3E3E 		.string	"\b\b>>\b\b"
+ 1243      0808 00
+ 1244 015f 00        		.string	""
+ 1245 0160 00        		.string	""
+ 1246 0161 80E0 6000 		.string	"\200\340`"
+ 1247 0165 00        		.string	""
+ 1248 0166 00        		.string	""
+ 1249 0167 00        		.string	""
+ 1250 0168 0808 0808 		.string	"\b\b\b\b\b\b"
+ 1250      0808 00
+ 1251 016f 00        		.string	""
+ 1252 0170 00        		.string	""
+ 1253 0171 00        		.string	""
+ 1254 0172 6060 00   		.string	"``"
+ 1255 0175 00        		.string	""
+ 1256 0176 00        		.string	""
+ 1257 0177 00        		.string	""
+ 1258 0178 6030 180C 		.string	"`0\030\f\006\003\001"
+ 1258      0603 0100 
+ 1259 0180 3E7F 7159 		.string	">\177qYM\177>"
+GAS LISTING /tmp/cchy1VOj.s 			page 27
+
+
+ 1259      4D7F 3E00 
+ 1260 0188 4042 7F7F 		.string	"@B\177\177@@"
+ 1260      4040 00
+ 1261 018f 00        		.string	""
+ 1262 0190 6273 5949 		.string	"bsYIof"
+ 1262      6F66 00
+ 1263 0197 00        		.string	""
+ 1264 0198 2263 4949 		.string	"\"cII\1776"
+ 1264      7F36 00
+ 1265 019f 00        		.string	""
+ 1266 01a0 181C 1653 		.string	"\030\034\026S\177\177P"
+ 1266      7F7F 5000 
+ 1267 01a8 2767 4545 		.string	"'gEE}9"
+ 1267      7D39 00
+ 1268 01af 00        		.string	""
+ 1269 01b0 3C7E 4B49 		.string	"<~KIy0"
+ 1269      7930 00
+ 1270 01b7 00        		.string	""
+ 1271 01b8 0303 7179 		.string	"\003\003qy\017\007"
+ 1271      0F07 00
+ 1272 01bf 00        		.string	""
+ 1273 01c0 367F 4949 		.string	"6\177II\1776"
+ 1273      7F36 00
+ 1274 01c7 00        		.string	""
+ 1275 01c8 064F 4969 		.string	"\006OIi?\036"
+ 1275      3F1E 00
+ 1276 01cf 00        		.string	""
+ 1277 01d0 00        		.string	""
+ 1278 01d1 00        		.string	""
+ 1279 01d2 6666 00   		.string	"ff"
+ 1280 01d5 00        		.string	""
+ 1281 01d6 00        		.string	""
+ 1282 01d7 00        		.string	""
+ 1283 01d8 00        		.string	""
+ 1284 01d9 80E6 6600 		.string	"\200\346f"
+ 1285 01dd 00        		.string	""
+ 1286 01de 00        		.string	""
+ 1287 01df 00        		.string	""
+ 1288 01e0 081C 3663 		.string	"\b\0346cA"
+ 1288      4100 
+ 1289 01e6 00        		.string	""
+ 1290 01e7 00        		.string	""
+ 1291 01e8 2424 2424 		.string	"$$$$$$"
+ 1291      2424 00
+ 1292 01ef 00        		.string	""
+ 1293 01f0 00        		.string	""
+ 1294 01f1 4163 361C 		.string	"Ac6\034\b"
+ 1294      0800 
+ 1295 01f7 00        		.string	""
+ 1296 01f8 0203 5159 		.string	"\002\003QY\017\006"
+ 1296      0F06 00
+ 1297 01ff 00        		.string	""
+ 1298 0200 3E7F 415D 		.string	">\177A]]\037\036"
+ 1298      5D1F 1E00 
+ 1299 0208 7C7E 1313 		.string	"|~\023\023~|"
+ 1299      7E7C 00
+ 1300 020f 00        		.string	""
+GAS LISTING /tmp/cchy1VOj.s 			page 28
+
+
+ 1301 0210 417F 7F49 		.string	"A\177\177II\1776"
+ 1301      497F 3600 
+ 1302 0218 1C3E 6341 		.string	"\034>cAAc\""
+ 1302      4163 2200 
+ 1303 0220 417F 7F41 		.string	"A\177\177Ac>\034"
+ 1303      633E 1C00 
+ 1304 0228 417F 7F49 		.string	"A\177\177I]Ac"
+ 1304      5D41 6300 
+ 1305 0230 417F 7F49 		.string	"A\177\177I\035\001\003"
+ 1305      1D01 0300 
+ 1306 0238 1C3E 6341 		.string	"\034>cAQsr"
+ 1306      5173 7200 
+ 1307 0240 7F7F 0808 		.string	"\177\177\b\b\177\177"
+ 1307      7F7F 00
+ 1308 0247 00        		.string	""
+ 1309 0248 00        		.string	""
+ 1310 0249 417F 7F41 		.string	"A\177\177A"
+ 1310      00
+ 1311 024e 00        		.string	""
+ 1312 024f 00        		.string	""
+ 1313 0250 3070 4041 		.string	"0p@A\177?\001"
+ 1313      7F3F 0100 
+ 1314 0258 417F 7F08 		.string	"A\177\177\b\034wc"
+ 1314      1C77 6300 
+ 1315 0260 417F 7F41 		.string	"A\177\177A@`p"
+ 1315      4060 7000 
+ 1316 0268 7F7F 0E1C 		.string	"\177\177\016\034\016\177\177"
+ 1316      0E7F 7F00 
+ 1317 0270 7F7F 060C 		.string	"\177\177\006\f\030\177\177"
+ 1317      187F 7F00 
+ 1318 0278 1C3E 6341 		.string	"\034>cAc>\034"
+ 1318      633E 1C00 
+ 1319 0280 417F 7F49 		.string	"A\177\177I\t\017\006"
+ 1319      090F 0600 
+ 1320 0288 1E3F 2171 		.string	"\036?!q\177^"
+ 1320      7F5E 00
+ 1321 028f 00        		.string	""
+ 1322 0290 417F 7F09 		.string	"A\177\177\t\031\177f"
+ 1322      197F 6600 
+ 1323 0298 266F 4D59 		.string	"&oMYs2"
+ 1323      7332 00
+ 1324 029f 00        		.string	""
+ 1325 02a0 0341 7F7F 		.string	"\003A\177\177A\003"
+ 1325      4103 00
+ 1326 02a7 00        		.string	""
+ 1327 02a8 7F7F 4040 		.string	"\177\177@@\177\177"
+ 1327      7F7F 00
+ 1328 02af 00        		.string	""
+ 1329 02b0 1F3F 6060 		.string	"\037?``?\037"
+ 1329      3F1F 00
+ 1330 02b7 00        		.string	""
+ 1331 02b8 7F7F 3018 		.string	"\177\1770\0300\177\177"
+ 1331      307F 7F00 
+ 1332 02c0 4367 3C18 		.string	"Cg<\030<gC"
+ 1332      3C67 4300 
+ 1333 02c8 074F 7878 		.string	"\007OxxO\007"
+ 1333      4F07 00
+GAS LISTING /tmp/cchy1VOj.s 			page 29
+
+
+ 1334 02cf 00        		.string	""
+ 1335 02d0 4763 7159 		.string	"GcqYMgs"
+ 1335      4D67 7300 
+ 1336 02d8 00        		.string	""
+ 1337 02d9 7F7F 4141 		.string	"\177\177AA"
+ 1337      00
+ 1338 02de 00        		.string	""
+ 1339 02df 00        		.string	""
+ 1340 02e0 0103 060C 		.string	"\001\003\006\f\0300`"
+ 1340      1830 6000 
+ 1341 02e8 00        		.string	""
+ 1342 02e9 4141 7F7F 		.string	"AA\177\177"
+ 1342      00
+ 1343 02ee 00        		.string	""
+ 1344 02ef 00        		.string	""
+ 1345 02f0 080C 0603 		.string	"\b\f\006\003\006\f\b"
+ 1345      060C 0800 
+ 1346 02f8 8080 8080 		.ascii	"\200\200\200\200\200\200\200\200"
+ 1346      8080 8080 
+ 1347 0300 00        		.string	""
+ 1348 0301 00        		.string	""
+ 1349 0302 0307 0400 		.string	"\003\007\004"
+ 1350 0306 00        		.string	""
+ 1351 0307 00        		.string	""
+ 1352 0308 2074 5454 		.string	" tTT<x@"
+ 1352      3C78 4000 
+ 1353 0310 417F 3F48 		.string	"A\177?HHx0"
+ 1353      4878 3000 
+ 1354 0318 387C 4444 		.string	"8|DDl("
+ 1354      6C28 00
+ 1355 031f 00        		.string	""
+ 1356 0320 3078 4849 		.string	"0xHI?\177@"
+ 1356      3F7F 4000 
+ 1357 0328 387C 5454 		.string	"8|TT\\\030"
+ 1357      5C18 00
+ 1358 032f 00        		.string	""
+ 1359 0330 487E 7F49 		.string	"H~\177I\003\002"
+ 1359      0302 00
+ 1360 0337 00        		.string	""
+ 1361 0338 98BC A4A4 		.string	"\230\274\244\244\370|\004"
+ 1361      F87C 0400 
+ 1362 0340 417F 7F08 		.string	"A\177\177\b\004|x"
+ 1362      047C 7800 
+ 1363 0348 00        		.string	""
+ 1364 0349 447D 7D40 		.string	"D}}@"
+ 1364      00
+ 1365 034e 00        		.string	""
+ 1366 034f 00        		.string	""
+ 1367 0350 60E0 8080 		.string	"`\340\200\200\375}"
+ 1367      FD7D 00
+ 1368 0357 00        		.string	""
+ 1369 0358 417F 7F10 		.string	"A\177\177\0208lD"
+ 1369      386C 4400 
+ 1370 0360 00        		.string	""
+ 1371 0361 417F 7F40 		.string	"A\177\177@"
+ 1371      00
+ 1372 0366 00        		.string	""
+GAS LISTING /tmp/cchy1VOj.s 			page 30
+
+
+ 1373 0367 00        		.string	""
+ 1374 0368 7C7C 1838 		.string	"||\0308\034|x"
+ 1374      1C7C 7800 
+ 1375 0370 7C7C 0404 		.string	"||\004\004|x"
+ 1375      7C78 00
+ 1376 0377 00        		.string	""
+ 1377 0378 387C 4444 		.string	"8|DD|8"
+ 1377      7C38 00
+ 1378 037f 00        		.string	""
+ 1379 0380 84FC F8A4 		.string	"\204\374\370\244$<\030"
+ 1379      243C 1800 
+ 1380 0388 183C 24A4 		.string	"\030<$\244\370\374\204"
+ 1380      F8FC 8400 
+ 1381 0390 447C 784C 		.string	"D|xL\004\034\030"
+ 1381      041C 1800 
+ 1382 0398 485C 5454 		.string	"H\\TTt$"
+ 1382      7424 00
+ 1383 039f 00        		.string	""
+ 1384 03a0 00        		.string	""
+ 1385 03a1 043E 7F44 		.string	"\004>\177D$"
+ 1385      2400 
+ 1386 03a7 00        		.string	""
+ 1387 03a8 3C7C 4040 		.string	"<|@@<|@"
+ 1387      3C7C 4000 
+ 1388 03b0 1C3C 6060 		.string	"\034<``<\034"
+ 1388      3C1C 00
+ 1389 03b7 00        		.string	""
+ 1390 03b8 3C7C 7038 		.string	"<|p8p|<"
+ 1390      707C 3C00 
+ 1391 03c0 446C 3810 		.string	"Dl8\0208lD"
+ 1391      386C 4400 
+ 1392 03c8 9CBC A0A0 		.string	"\234\274\240\240\374|"
+ 1392      FC7C 00
+ 1393 03cf 00        		.string	""
+ 1394 03d0 4C64 745C 		.string	"Ldt\\Ld"
+ 1394      4C64 00
+ 1395 03d7 00        		.string	""
+ 1396 03d8 0808 3E77 		.string	"\b\b>wAA"
+ 1396      4141 00
+ 1397 03df 00        		.string	""
+ 1398 03e0 00        		.string	""
+ 1399 03e1 00        		.string	""
+ 1400 03e2 00        		.string	""
+ 1401 03e3 7777 00   		.string	"ww"
+ 1402 03e6 00        		.string	""
+ 1403 03e7 00        		.string	""
+ 1404 03e8 4141 773E 		.string	"AAw>\b\b"
+ 1404      0808 00
+ 1405 03ef 00        		.string	""
+ 1406 03f0 0203 0103 		.string	"\002\003\001\003\002\003\001"
+ 1406      0203 0100 
+ 1407 03f8 00        		.string	""
+ 1408 03f9 00        		.string	""
+ 1409 03fa 00        		.string	""
+ 1410 03fb 00        		.string	""
+ 1411 03fc 00        		.string	""
+ 1412 03fd 00        		.string	""
+GAS LISTING /tmp/cchy1VOj.s 			page 31
+
+
+ 1413 03fe 00        		.string	""
+ 1414 03ff 00        		.string	""
+ 1415               		.stabs	"font8x8_basic_tr:S(0,27)=ar(0,9);0;127;(0,8)",38,0,41,font8x8_basic_tr
+ 1416               		.text
+ 1417               		.stabs	"",100,0,0,.Letext0
+ 1418               	.Letext0:
+ 1419               		.ident	"GCC: (Fedora 10.2.0-2.fc34) 10.2.0"
+ 1420               	.global __do_copy_data
+GAS LISTING /tmp/cchy1VOj.s 			page 32
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 ssd1306.c
+     /tmp/cchy1VOj.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cchy1VOj.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cchy1VOj.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cchy1VOj.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cchy1VOj.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cchy1VOj.s:24     .text:0000000000000000 ssd1306_display_text
+     /tmp/cchy1VOj.s:961    .rodata:0000000000000000 font8x8_basic_tr
+     /tmp/cchy1VOj.s:168    .text:00000000000000a8 ssd1306_clear_screen
+     /tmp/cchy1VOj.s:275    .text:000000000000012c ssd1306_clear_line
+     /tmp/cchy1VOj.s:351    .text:0000000000000196 ssd1306_contrast
+     /tmp/cchy1VOj.s:385    .text:00000000000001aa ssd1306_software_scroll
+     /tmp/cchy1VOj.s:494    .text:0000000000000204 ssd1306_scroll_clear
+     /tmp/cchy1VOj.s:595    .text:0000000000000270 ssd1306_hardware_scroll
+     /tmp/cchy1VOj.s:630    .text:0000000000000284 ssd1306_invert
+     /tmp/cchy1VOj.s:676    .text:000000000000029e ssd1306_rotate
+     /tmp/cchy1VOj.s:728    .text:00000000000002b8 ssd1306_flip
+     /tmp/cchy1VOj.s:780    .text:00000000000002e6 ssd1306_fadeout
+
+UNDEFINED SYMBOLS
+spi_display_text
+memset
+spi_contrast
+spi_hardware_scroll
+__do_copy_data
